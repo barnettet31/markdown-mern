@@ -1,0 +1,27 @@
+/markdown-client/node_modules
+
+# Logs
+/markdown-client/logs
+/markdown-client/*.log
+/markdown-client/npm-debug.log*
+/markdown-client/yarn-debug.log*
+/markdown-client/yarn-error.log*
+/markdown-client/pnpm-debug.log*
+/markdown-client/lerna-debug.log*
+
+/markdown-client/node_modules
+/markdown-client/dist
+/markdown-client/dist-ssr
+/markdown-client/*.local
+
+# Editor directories and files
+/markdown-client/.vscode/*
+/markdown-client/!.vscode/extensions.json
+/markdown-client/.idea
+/markdown-client/.DS_Store
+/markdown-client/*.suo
+/markdown-client/*.ntvs*
+/markdown-client/*.njsproj
+/markdown-client/*.sln
+/markdown-client/*.sw?
+/markdown-server/node_modules
