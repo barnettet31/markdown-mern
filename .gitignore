@@ -24,4 +24,4 @@
 /markdown-client/*.njsproj
 /markdown-client/*.sln
 /markdown-client/*.sw?
-/markdown-server/node_modules
+/api/node_modules
