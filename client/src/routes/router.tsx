@@ -4,21 +4,24 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import HomeLayout from "../layouts/home/home.layout";
-const Disclaimer = lazy(() => import("./disclaimer/disclaimer.route"));
+import { HomeLayout } from "../layouts/home/home.layout";
+
+const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
+const SignUpPage = lazy(() => import("./signup/signup.route"));
+const CodePage = lazy(() => import("./code/code.route"));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<HomeLayout />}>
-      <>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/disclaimer" element={<Disclaimer />} />
-        </Suspense>
-      </>
-    </Route>
+    <>
+      <Route element={<HomeLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/disclaimer" element={<DisclaimerPage />} />
+        <Route path="/code" element={<CodePage />} />
+      </Route>
+    </>
   )
 );
