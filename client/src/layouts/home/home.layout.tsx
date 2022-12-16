@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { HomeContainer } from "../../components/containers/home-containers.component";
+import { HomeFooter } from "../../components/footer/home-footer.component";
 import { HomeNavBar } from "../../components/navbar/homeNavbar.component";
 
 export const HomeLayout = () => {
@@ -11,7 +12,9 @@ export const HomeLayout = () => {
         <HomeContainer>
           <Outlet />
         </HomeContainer>
+
       </Suspense>
+      <HomeFooter/>
     </>
   );
 };
