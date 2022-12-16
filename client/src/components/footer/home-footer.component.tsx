@@ -60,7 +60,7 @@ export const HomeFooter = () => {
         <p>Coded by Travis Barnette</p>
         <div className="flex gap-3">
         {social.map((item) => (
-                <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+                <a target="_blank" rel="no-rel" key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6 hover:opacity-70 ease-in-out" ariaHidden={true} />
                 </a>
