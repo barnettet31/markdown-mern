@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { isDarkModeEnabled } from "../utilities/darkMode";
 
-const systemPreferDarkMode = isDarkModeEnabled()
-export function useDarkModePreference (){
-const  darkStringSet = localStorage.getItem('dark') ? Boolean(localStorage.getItem('dark')) : false;
-const  [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(darkStringSet? darkStringSet : systemPreferDarkMode);
+
+
+export default function useDarkMode(){
+const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem('theme') ==='dark' ? true : false);
+
 
 useEffect(()=>{
-    localStorage.setItem('dark', JSON.stringify(prefersDarkMode));
-},[prefersDarkMode])
-return {
- prefersDarkMode, 
- setPrefersDarkMode
+    if(darkMode){
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }else{
+        document.body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }
+},[darkMode])
+const toggleDarkMode = ()=>{
+    setDarkMode(!darkMode);
 }
+return [darkMode, toggleDarkMode] as const
 }
