@@ -2,7 +2,7 @@ import { AppTypography } from "../../components/typography/app-typography.compon
 import useDarkMode from "../../hooks/darkMode";
 
 const HomePage = () => {
-    const [_, toggleDarkMode] = useDarkMode();
+    const [_,toggleDarkMode] = useDarkMode();
     return (
     <div>
       <AppTypography intent="h2">This is my text</AppTypography>
