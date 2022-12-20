@@ -1,3 +1,5 @@
 import logo from '../../assets/graphics/logo.svg';
-
-export const Logo = ()=> <img className="hover:opacity-70 ease-in-out" src={logo} alt="Markdown"/>
+interface IProps {
+    classes?:string;
+}
+export const Logo = ({classes}:IProps)=> <img className={"hover:opacity-70 ease-in-out " + classes} src={logo} alt="Markdown"/>

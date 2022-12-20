@@ -16,13 +16,13 @@ const HomePage = () => {
             className="underline font-bold"
             href="https://www.frontendmentor.io/challenges/inbrowser-markdown-editor-r16TrrQX9/hub">
             Front End Mentor
-          </a>
+          </a>{" "}
           challenge and one of my capstone projects for Promineo Tech Bootcamp.
         </AppTypography>
         <AppTypography intent="p" className="text-lg md:text-xl lg:text-2xl">
           The class requirements for this application are as follows:
         </AppTypography>
-        <ol className="text-prose font-default text-lg md:text-xl lg:text-2xl list-decimal list-inside">
+        <ol className="text-prose font-default text-lg md:text-xl lg:text-2xl list-decimal list-inside text-secondary-gray dark:text-secondary-white">
           <li>Create a full CRUD application of your choice. </li>
           <li>When using an existing API, use AJAX to interact with it</li>
           <li>Use a form to add new entities</li>
