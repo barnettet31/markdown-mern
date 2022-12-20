@@ -17,7 +17,7 @@ module.exports = {
         "tertiary-black":'#1d1f22',
         "secondary-black":'#1d1f22',
         "primary-gray":'#5a6069',
-        "secondary-gray":'##7c8187',
+        "secondary-gray":'#7c8187',
         "tertiary-gray":'#c1c4cb',
         "quaternary-gray":'#e4e4e4',
         "primary-white":"#f5f5f5",

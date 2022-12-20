@@ -55,7 +55,7 @@ const  social = [
 
 export const HomeFooter = () => {
   return (
-    <footer className="bg-tertiary-black py-4 px-4 md:px-0 w-full text-tertiary-gray">
+    <footer className="bg-tertiary-black py-4 px-4 md:px-0 w-full text-tertiary-gray mt-3">
       <div className="container mx-auto sm:px-6 lg:px-8 flex gap-3 items-center justify-between">
         <p>Coded by Travis Barnette</p>
         <div className="flex gap-3">

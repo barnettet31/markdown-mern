@@ -40,7 +40,7 @@ const HomePage = () => {
           CRUD operations server side!
         </AppTypography>
         <AppTypography intent="p" className="text-lg md:text-xl lg:text-2xl">The app is built in React with Typescript for type safety and is capable of rendering Markdown added by the user into a preview window in the browser, and saving user data to be updated OR deleted in the future.</AppTypography>
-        <Link to="/code" className="inline-flex w-72 text-center items-center mt-8 rounded-md border border-transparent bg-primary-orange px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-secondary-orange ">Check out the Code Here</Link>
+        <Link to="/code" className="inline-flex w-72 text-center items-center mt-4 rounded-md border border-transparent bg-primary-orange px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-secondary-orange ">Check out the Code Here</Link>
 
       
     </div>
