@@ -10,17 +10,15 @@ const port = 8080;
 
 const DB = config.USER_DATABASE_URL.replace('<PASSWORD>', config.DATABASE_PASSWORD);
 
-mongoose.connect(DB,).then((c)=>{
-  
-  console.log('DB connection successful')
+mongoose.connect(DB).then((c)=>{
+console.log('DB connection successful')
 }).catch(e=>{
   console.log(e);
 });
 
 
 app.listen(port, () => {
-  console.log(app)
-  console.log('hello world')
+  console.log(`App started at http://localhost:${port}`)
 
 });
 
