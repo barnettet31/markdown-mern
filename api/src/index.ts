@@ -6,7 +6,7 @@ import UserRouter from "./routes/user/user.router";
 const app = express();
 const port = 8080;
 
-
+app.use(express.json());
 
 const DB = config.USER_DATABASE_URL.replace('<PASSWORD>', config.DATABASE_PASSWORD);
 
