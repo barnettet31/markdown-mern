@@ -25,7 +25,7 @@ export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
   };
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div className="bg-white dark:bg-secondary-black py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="bg-white dark:bg-tertiary-black py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form
           className="space-y-6"
           onSubmit={handleSubmit(
