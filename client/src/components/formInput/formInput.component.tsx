@@ -38,7 +38,7 @@ export const FormTextInput = ({
         <input
           {...register(name, { required })}
           type={_returnFormInputType(name)}
-          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm"
+          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm focus:outline-primary-orange"
         />
       </div>
     </div>

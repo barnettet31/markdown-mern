@@ -12,9 +12,8 @@ export const HomeLayout = () => {
         <HomeContainer>
           <Outlet />
         </HomeContainer>
-
       </Suspense>
-      <HomeFooter/>
+      <HomeFooter />
     </>
   );
 };
