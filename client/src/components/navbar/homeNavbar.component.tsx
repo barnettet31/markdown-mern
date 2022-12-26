@@ -33,9 +33,11 @@ export const HomeNavBar = () => {
           </Link>
         </div>
         <div className="text-right lg:hidden">
-          <Menu as="div" className="relative inline-block text-left">
+          <Menu
+            as="div"
+            className="relative inline-block text-left dark:bg-tertiary-black ">
             <div>
-              <Menu.Button className="inline-flex w-full justify-center rounded-md bg-tertiary-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30">
+              <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
