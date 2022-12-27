@@ -11,7 +11,6 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    return next(new AppError("test", 404));
     res.status(200).json({
       message: "good job get",
     });
