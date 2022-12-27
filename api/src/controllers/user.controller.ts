@@ -1,15 +1,19 @@
 import User from "../models/user.model";
-import { Request, Response } from "express";
-export const createUser = async(req:Request, res:Response)=>{
-    console.log(req.params);
-    res.status(200).json({
-        message:'good job create'
-    })
-}
+import { NextFunction, Request, Response } from "express";
+import { catchAsync } from "../utils/catchAsync";
+import AppError from "../utils/appError";
+export const createUser = async (req: Request, res: Response) => {
+  console.log(req.params);
+  res.status(200).json({
+    message: "good job create",
+  });
+};
 
-export const getUser = async (req:Request, res:Response)=>{
-    console.log(req.params);
+export const getUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    return next(new AppError("test", 404));
     res.status(200).json({
-        message:'good job get'
-    })
-}
+      message: "good job get",
+    });
+  }
+);
