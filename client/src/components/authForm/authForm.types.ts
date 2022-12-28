@@ -1,5 +1,7 @@
-export type AuthFormData = {
+export interface IAuthFormData {
   email: string;
-  confirmEmail?: string;
   password: string;
-};
+}
+export interface AuthFormData extends IAuthFormData {
+  confirmEmail?: string;
+}

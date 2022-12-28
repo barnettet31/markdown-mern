@@ -7,7 +7,7 @@ import {
 } from "../../controllers/user.controller";
 const router = express.Router();
 
-router.route("/create").post(createUser);
+router.route("/signup").post(createUser);
 
 router.route("/get/:id").get(getUser);
 

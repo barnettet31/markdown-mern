@@ -2,10 +2,13 @@ import { SubmitHandler } from "react-hook-form";
 import { AuthFormData } from "../../components/authForm/authForm.types";
 import { AuthForm } from "../../components/authForm/authForm.component";
 import { schema, inputData } from "./signup.config";
+import { useMutation } from "react-query";
+import { registerUser } from "../../api/api.handler";
 
 const SignUpPage = () => {
-  const submitHandler: SubmitHandler<AuthFormData> = (data) =>
-    alert(JSON.stringify(data));
+  const mutation = useMutation("register", registerUser, {
+    onSuccess: (data) => alert(JSON.stringify(data)),
+  });
 
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -16,7 +19,7 @@ const SignUpPage = () => {
       </div>
       <AuthForm
         schema={schema}
-        submitHandler={submitHandler}
+        submitHandler={mutation.mutate}
         inputs={inputData}
       />
     </div>
