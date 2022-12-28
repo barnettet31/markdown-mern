@@ -1,5 +1,3 @@
-import { SubmitHandler } from "react-hook-form";
-import { AuthFormData } from "../../components/authForm/authForm.types";
 import { AuthForm } from "../../components/authForm/authForm.component";
 import { schema, inputData } from "./signup.config";
 import { useMutation } from "react-query";
@@ -7,7 +5,7 @@ import { registerUser } from "../../api/api.handler";
 
 const SignUpPage = () => {
   const mutation = useMutation("register", registerUser, {
-    onSuccess: (data) => alert(JSON.stringify(data)),
+    onSuccess: (data) => console.log(data),
   });
 
   return (
