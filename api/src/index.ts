@@ -1,7 +1,6 @@
 import express from "express";
 import config from './config/config'
 import mongoose from "mongoose";
-import userModel from "./models/user.model";
 import UserRouter from "./routes/user/user.router";
 import { errorMiddleWare } from "./controllers/error.controller";
 const app = express();
@@ -11,10 +10,8 @@ app.use(express.json());
 
 const DB = config.USER_DATABASE_URL.replace('<PASSWORD>', config.DATABASE_PASSWORD);
 
-mongoose.connect(DB).then((c)=>{
+mongoose.set('strictQuery', true).connect(DB).then((c)=>{
 console.log('DB connection successful')
-}).catch(e=>{
-  console.log(e);
 });
 
 
