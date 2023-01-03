@@ -22,9 +22,8 @@ export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
     resolver: zodResolver(schema),
   });
   const handleOnSubmit = (data: AuthFormData) => {
-    console.log("handleSubmit", data);
     submitHandler(data);
-    // reset();
+    reset();
   };
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

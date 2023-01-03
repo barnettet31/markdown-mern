@@ -8,11 +8,11 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const { isLoading, mutateAsync } = useMutation("register", registerUser, {
     onSuccess: async (data) => {
-      const json = await data.json();
-      console.log(json);
       navigate("/login", { state: { success: true } });
     },
-    onError: (error) => console.log(error),
+    onError: (error) => {
+      throw Error("An Error occured");
+    },
   });
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -21,7 +21,7 @@ const SignUpPage = () => {
           Sign Up For An Account
         </h2>
       </div>
-      {isLoading ? (
+      {true ? (
         <p className="text-bold text-white text-md">Loading...</p>
       ) : (
         <AuthForm
