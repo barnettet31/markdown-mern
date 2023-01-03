@@ -6,5 +6,6 @@ export interface IUser extends mongoose.Document {
   password: string;
   fullName: string;
   createdAt: Date;
+  sessions:string[];
   documents: string[];
 }

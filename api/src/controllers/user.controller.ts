@@ -6,8 +6,9 @@ import jwt from "jsonwebtoken";
 import config from "../config/config";
 export const createUser = async (req: Request, res: Response) => {
   const { email, password, fullName } = req.body;
-  const takenUserName = await User.findOne({ email: email });
-  if (takenUserName) return res.json({ message: "Email is already in use" });
+  const takenEmail = await User.findOne({ email: email });
+  const takenFullName = await User.findOne({fullName:fullName});
+  if (takenEmail || takenFullName) return res.json({ message: "User already exists" });
   const encryptedPassword = await bcrypt.hash(password, 10);
 
   const newUser = await User.create({
