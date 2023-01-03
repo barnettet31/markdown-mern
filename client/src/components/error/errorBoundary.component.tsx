@@ -1,24 +1,23 @@
 import React, { ReactElement, ReactNode, ReactPropTypes } from "react";
 interface IProps {
-    children:ReactNode
-    errorElement:ReactNode
+  children: ReactNode;
+  errorElement: ReactNode;
 }
 interface ErrorState {
-    hasError:boolean;
+  hasError: boolean;
 }
-export class ErrorBoundary extends React.Component<IProps, ErrorState>{
-    state:ErrorState ={
-        hasError:false
+export class ErrorBoundary extends React.Component<IProps, ErrorState> {
+  state: ErrorState = {
+    hasError: false,
+  };
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    this.setState({ hasError: true });
+  }
+  render(): React.ReactNode {
+    if (this.state.hasError) {
+      console.log(this.state);
+      return this.props.errorElement;
     }
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void
-    {
-        this.setState({hasError:true});
-    }
-    render(): React.ReactNode
-    {
-        if(this.state.hasError){
-            return this.props.errorElement;
-        }
-        return this.props.children;
-    }
+    return this.props.children;
+  }
 }

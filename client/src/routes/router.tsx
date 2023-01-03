@@ -5,6 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import { HomeLayout } from "../layouts/home/home.layout";
+import { ErrorBoundary } from "../components/error/errorBoundary.component";
 
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
@@ -18,7 +19,14 @@ export const router = createBrowserRouter(
       <Route element={<HomeLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route
+          path="/signup"
+          element={
+            <ErrorBoundary errorElement={<div>Oops...</div>}>
+              <SignUpPage />
+            </ErrorBoundary>
+          }
+        />
         <Route path="/disclaimer" element={<DisclaimerPage />} />
         <Route path="/code" element={<CodePage />} />
       </Route>
