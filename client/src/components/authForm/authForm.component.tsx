@@ -3,12 +3,14 @@ import { AuthFormData } from "./authForm.types";
 import { FormTextInput, IInput } from "../formInput/formInput.component";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useLocation } from "react-router-dom";
 interface IAuthFormProps {
   submitHandler: (data: AuthFormData) => void;
   inputs: IInput[];
   schema: z.ZodSchema<AuthFormData>;
 }
 export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
+  const location = useLocation();
   const {
     handleSubmit,
     register,
@@ -20,6 +22,7 @@ export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
     resolver: zodResolver(schema),
   });
   const handleOnSubmit = (data: AuthFormData) => {
+    console.log("handleSubmit", data);
     submitHandler(data);
     reset();
   };
@@ -51,7 +54,7 @@ export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
           <button
             type="submit"
             className="flex w-full justify-center rounded-md border border-transparent bg-primary-orange hover:bg-secondary-orange py-2 px-4 text-sm font-medium text-white shadow-sm">
-            Sign in
+            {location.pathname === "/login" ? "Sign in" : "Sign Up"}
           </button>
         </form>
       </div>

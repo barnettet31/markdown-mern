@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 const SignUpPage = () => {
   const navigate = useNavigate();
   const mutation = useMutation("register", registerUser, {
-    onSuccess: (data) =>
-      navigate("/login", {
-        state: data,
-      }),
+    onSuccess: (data) => {
+      console.log({ data });
+      // navigate("/login", {
+      //   state: data,
+      // });
+    },
+    onError: (error) => console.log(error),
   });
 
   return (

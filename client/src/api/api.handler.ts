@@ -10,17 +10,13 @@ export const checkLogin = async ({ email, password }: IAuthFormData) => {
   });
 };
 
-export const registerUser = async ({
-  email,
-  password,
-  fullName,
-}: AuthFormData) => {
-  const data = JSON.stringify({ email, password, fullName });
+export const registerUser = async (data: AuthFormData) => {
+  console.log("registerUser", data);
   return fetch("http://localhost:8080/api/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: data,
+    body: JSON.stringify(data),
   });
 };

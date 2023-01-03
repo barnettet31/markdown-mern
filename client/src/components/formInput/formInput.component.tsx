@@ -24,6 +24,8 @@ export const FormTextInput = ({
         return name;
       case "confirmEmail":
         return "email";
+      default:
+        return "text";
     }
   };
 
@@ -38,7 +40,7 @@ export const FormTextInput = ({
         <input
           {...register(name, { required })}
           type={_returnFormInputType(name)}
-          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm focus:outline-primary-orange"
+          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 dark:placeholder-black shadow-sm sm:text-sm text-black focus:outline-primary-orange"
         />
       </div>
     </div>
