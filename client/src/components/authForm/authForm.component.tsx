@@ -24,7 +24,7 @@ export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
   const handleOnSubmit = (data: AuthFormData) => {
     console.log("handleSubmit", data);
     submitHandler(data);
-    reset();
+    // reset();
   };
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -33,7 +33,7 @@ export const AuthForm = ({ submitHandler, inputs, schema }: IAuthFormProps) => {
           className="space-y-6"
           onSubmit={handleSubmit(
             (data) => handleOnSubmit(data),
-            (data) => console.error({ ...data })
+            (data) => console.error({ data })
           )}>
           {inputs.map(({ name, required, label }) => (
             <FormTextInput

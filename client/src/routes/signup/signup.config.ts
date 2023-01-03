@@ -9,6 +9,7 @@ const SignUpSchema = z
       .string()
       .min(6, { message: "Password must be at least 6 characters" })
       .max(15, { message: "Password cannot be longer than 15 characters" }),
+    fullName: z.string(),
   })
   .required()
   .refine((data) => data.confirmEmail === data.email, {

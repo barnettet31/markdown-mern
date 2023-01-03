@@ -9,14 +9,14 @@ export const createUser = async (req: Request, res: Response) => {
   const takenUserName = await User.findOne({ email: email });
   if (takenUserName) return res.json({ message: "Email is already in use" });
   const encryptedPassword = await bcrypt.hash(password, 10);
-  console.log(req.body);
-  // const newUser = User.create({
-  //   email,
-  //   password: encryptedPassword,
-  //   fullName,
-  // });
 
-  // res.json({ message: "Success", user: newUser });
+  const newUser = await User.create({
+    email,
+    password: encryptedPassword,
+    fullName,
+  });
+
+  res.json({ message: "success" });
 };
 
 export const confirmUser = async (req: Request, res: Response) => {};

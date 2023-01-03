@@ -24,11 +24,10 @@ export const FormTextInput = ({
         return name;
       case "confirmEmail":
         return "email";
-      default:
+      case "fullName":
         return "text";
     }
   };
-
   return (
     <div>
       <label
