@@ -5,17 +5,20 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../config/config";
 export const createUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, fullName } = req.body;
   const takenUserName = await User.findOne({ email: email });
   if (takenUserName) return res.json({ message: "Email is already in use" });
   const encryptedPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({
-    email: email,
+  const newUser = User.create({
+    email,
     password: encryptedPassword,
+    fullName,
   });
-  newUser.save();
-  res.json({ message: "Success" });
+
+  res.json({ message: "Success", user: newUser });
 };
+
+export const confirmUser = async (req: Request, res: Response) => {};
 
 export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

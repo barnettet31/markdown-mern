@@ -17,6 +17,7 @@ const SignUpSchema = z
   });
 
 const inputs: IInput[] = [
+  { required: true, name: "fullName", label: "Full Name" },
   {
     required: true,
     name: "email",

@@ -1,4 +1,7 @@
-import { IAuthFormData } from "../components/authForm/authForm.types";
+import {
+  IAuthFormData,
+  AuthFormData,
+} from "../components/authForm/authForm.types";
 
 export const checkLogin = async ({ email, password }: IAuthFormData) => {
   return fetch("/api/login", {
@@ -7,14 +10,17 @@ export const checkLogin = async ({ email, password }: IAuthFormData) => {
   });
 };
 
-export const registerUser = async ({ email, password }: IAuthFormData) => {
-  const data = JSON.stringify({ email, password });
-  console.log(data);
+export const registerUser = async ({
+  email,
+  password,
+  fullName,
+}: AuthFormData) => {
+  const data = JSON.stringify({ email, password, fullName });
   return fetch("http://localhost:8080/api/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: email, password: password }),
+    body: data,
   });
 };

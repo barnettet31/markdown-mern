@@ -4,4 +4,5 @@ export interface IAuthFormData {
 }
 export interface AuthFormData extends IAuthFormData {
   confirmEmail?: string;
+  fullName?:string;
 }

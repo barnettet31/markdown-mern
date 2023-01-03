@@ -2,10 +2,15 @@ import { AuthForm } from "../../components/authForm/authForm.component";
 import { schema, inputData } from "./signup.config";
 import { useMutation } from "react-query";
 import { registerUser } from "../../api/api.handler";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const mutation = useMutation("register", registerUser, {
-    onSuccess: (data) => console.log(data),
+    onSuccess: (data) =>
+      navigate("/login", {
+        state: data,
+      }),
   });
 
   return (

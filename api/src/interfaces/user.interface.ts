@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 export interface IUser extends mongoose.Document {
+  active: boolean;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   createdAt: Date;
   documents: string[];
 }
