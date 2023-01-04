@@ -3,7 +3,7 @@ import { IVerification } from "../interfaces/verification.interface";
 
 const Verification = new Schema<IVerification>({
   userRef: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  verifyHash: String,
+  session: String,
   expireAt: {
     type: Date,
     default: Date.now,

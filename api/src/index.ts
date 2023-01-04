@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import UserRouter from "./routes/user/user.router";
 import { errorMiddleWare } from "./controllers/error.controller";
 import cors from "cors";
+import session, { SessionOptions } from "express-session";
+import MongoStore from "connect-mongo";
 const allowedOrigins = ["http://localhost:5173"];
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
@@ -18,20 +20,50 @@ const DB = config.USER_DATABASE_URL.replace(
   config.DATABASE_PASSWORD
 );
 
-mongoose
+const clientP = mongoose
   .set("strictQuery", true)
   .connect(DB)
-  .then((c) => {
-    console.log("DB connection successful");
-  });
+  .then((m) => m.connection.getClient());
 
 app.listen(port, () => {
   console.log(`App started at http://localhost:${port}`);
 });
 app.use(cors(options));
+
+//session middleware
+type User = {
+  id: string;
+};
+
+declare module "express-session" {
+  interface SessionData {
+    user: User;
+  }
+}
+
+const mySession: SessionOptions = {
+  cookie: { secure: false, maxAge: 60000, httpOnly: true },
+  secret: config.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    clientPromise: clientP,
+    stringify: false,
+    autoRemove: "interval",
+    autoRemoveInterval: 1,
+    dbName: "users",
+  }),
+};
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1);
+  mySession.cookie?.secure ? (mySession.cookie.secure = true) : null;
+}
+app.use(session(mySession));
+
+//error middleware
+app.use(errorMiddleWare);
 //USER ROUTER
 app.use("/api/users", UserRouter);
-app.use(errorMiddleWare);
 app.all("*", (req, res, next) => {
   //console
   res.status(404).json({
