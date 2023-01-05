@@ -1,17 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
-export interface IUserDocument extends mongoose.Document {
+export interface IUserDocument {
   active: boolean;
   email: string;
   password: string;
   fullName: string;
   createdAt: Date;
-  sessions:AuthToken[];
+  sessions: AuthToken[];
   documents: string[];
-  comparePassword:comparePasswordFunction;
 }
 export interface AuthToken {
-  accessToken:string;
-  kind:string;
+  accessToken: string;
+  kind: string;
 }
-export type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => void) => void;
+
+export interface UserModel extends Model<IUserDocument> {}

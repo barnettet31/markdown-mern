@@ -1,8 +1,6 @@
 import User from "../models/user.model";
 import { NextFunction, Request, RequestHandler, Response } from "express";
-import { check, validationResult } from "express-validator";
-import passport from "../middlewares/passport";
-import { IUserDocument } from "../interfaces/user.interface";
+import passport from "../middlewares/passport.middleware";
 export const createUser = async (req: Request, res: Response) => {
   const { email, password, fullName } = req.body;
   const takenEmail = await User.findOne({ email: email });
@@ -25,30 +23,39 @@ export const getUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { id } = req.params;
-  const myUser = await User.findById(id);
-  if (myUser) {
-    res.status(200).json({
-      message: "success",
-      user: myUser,
-    });
-  } else {
-    res.status(404).json({
-      message: "use not found",
-    }); //test
-  }
-  res.status(200).json({
-    message: "good job get",
-    id: id,
-  });
+  console.log(req.isAuthenticated(), req.user);
+  res.status(200).json({ user: req.user });
+  // const { id } = req.params;
+  // const myUser = await User.findById(id);
+  // if (myUser) {
+  //   res.status(200).json({
+  //     message: "success",
+  //     user: myUser,
+  //   });
+  // } else {
+  //   res.status(404).json({
+  //     message: "use not found",
+  //   }); //test
+  // }
+  // res.status(200).json({
+  //   message: "good job get",
+  //   id: id,
+  // });
 };
 
-export const loginUser: RequestHandler<IUserDocument, any> = async (
-  req,
-  res,
-  next
-): Promise<void> => {
-  const { email, password } = req.body;
-  console.log(email, password);
-  // const User.authenticate()
+export const loginUser = (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate(
+    "local",
+    { failureMessage: "wrong stuffs" },
+    function (err, user, info) {
+      if (!user)
+        return res
+          .status(401)
+          .json({ message: "Username or password is not matched" });
+      req.login(user, (err) => {
+        if (err) throw err;
+        res.status(201).json({ user });
+      });
+    }
+  )(req, res, next);
 };

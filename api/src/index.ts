@@ -3,11 +3,8 @@ import config from "./config/config";
 import mongoose from "mongoose";
 import UserRouter from "./routes/user/user.router";
 import cors from "cors";
-import session, { SessionOptions } from "express-session";
-import MongoStore from "connect-mongo";
-import passport from "./middlewares/passport";
-import User from "./models/user.model";
-import { IUserDocument } from "./interfaces/user.interface";
+import passport from "./middlewares/passport.middleware";
+import sessionMiddleWare from "./middlewares/sesssion.middleware";
 const allowedOrigins = ["http://localhost:5173"];
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
@@ -16,13 +13,13 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 const DB = config.USER_DATABASE_URL.replace(
   "<PASSWORD>",
   config.DATABASE_PASSWORD
 );
 
-const clientP = mongoose
+export const clientP = mongoose
   .set("strictQuery", true)
   .connect(DB)
   .then((m) => m.connection.getClient());
@@ -37,33 +34,10 @@ type User = {
   id: string;
 };
 
-declare module "express-session" {
-  interface SessionData {
-    user: User;
-  }
-}
-
-const mySession: SessionOptions = {
-  cookie: { secure: true, maxAge: 60000, httpOnly: true },
-  secret: config.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    clientPromise: clientP,
-    stringify: false,
-    autoRemove: "interval",
-    autoRemoveInterval: 1,
-    dbName: "users",
-  }),
-};
-
-app.use(session(mySession));
+app.use(sessionMiddleWare);
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 //USER ROUTER
 app.use("/api/users", UserRouter);
 app.all("*", (req, res, next) => {
