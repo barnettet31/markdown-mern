@@ -2,6 +2,10 @@ import User from "../models/user.model";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
 import bcrypt from "bcrypt";
+import { check, validationResult } from "express-validator";
+import passport from "passport";
+import { IUserDocument } from "../interfaces/user.interface";
+import { IVerifyOptions } from "passport-local";
 export const createUser = async (req: Request, res: Response) => {
   const { email, password, fullName } = req.body;
   const takenEmail = await User.findOne({ email: email });
@@ -40,18 +44,22 @@ export const getUser = catchAsync(
   }
 );
 
-export const loginUser: RequestHandler = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email: email }).lean();
-  if (!user) return res.json({ message: "Invalid Email or Password" });
-  const comparisonCorrect = await bcrypt.compare(password, user.password);
-  if (!comparisonCorrect)
-    return res.json({ message: "Invalid Email or Password" });
-  req.session.regenerate(function (err) {
-    req.session.user = { id: user.id };
-    req.session.save(function (err) {
-      if (err) return next(err);
-      res.send({ loggedIn: true, session: req.session.user });
-    });
-  });
-});
+export const loginUser: RequestHandler = catchAsync(
+  async (req, res, next): Promise<void> => {
+    await check("email", "Email is not valid").isEmail().run(req);
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.redirect("/login");
+    }
+    passport.authenticate(
+      "local",
+      (err: Error, user: IUserDocument, info: IVerifyOptions) => {
+        if (err) return next(err);
+        if (!user) {
+          res.redirect("/login");
+        }
+      }
+    );
+  }
+);

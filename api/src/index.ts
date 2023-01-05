@@ -42,7 +42,7 @@ declare module "express-session" {
 }
 
 const mySession: SessionOptions = {
-  cookie: { secure: false, maxAge: 60000, httpOnly: true },
+  cookie: { secure: true, maxAge: 60000, httpOnly: true },
   secret: config.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -54,10 +54,7 @@ const mySession: SessionOptions = {
     dbName: "users",
   }),
 };
-if (app.get("env") === "production") {
-  app.set("trust proxy", 1);
-  mySession.cookie?.secure ? (mySession.cookie.secure = true) : null;
-}
+
 app.use(session(mySession));
 
 //error middleware
