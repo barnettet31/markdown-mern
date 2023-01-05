@@ -2,10 +2,12 @@ import express from "express";
 import config from "./config/config";
 import mongoose from "mongoose";
 import UserRouter from "./routes/user/user.router";
-import { errorMiddleWare } from "./controllers/error.controller";
 import cors from "cors";
 import session, { SessionOptions } from "express-session";
 import MongoStore from "connect-mongo";
+import passport from "./middlewares/passport";
+import User from "./models/user.model";
+import { IUserDocument } from "./interfaces/user.interface";
 const allowedOrigins = ["http://localhost:5173"];
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
@@ -56,9 +58,12 @@ const mySession: SessionOptions = {
 };
 
 app.use(session(mySession));
+app.use(passport.initialize());
+app.use(passport.session());
 
-//error middleware
-app.use(errorMiddleWare);
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 //USER ROUTER
 app.use("/api/users", UserRouter);
 app.all("*", (req, res, next) => {

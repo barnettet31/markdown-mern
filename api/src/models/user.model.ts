@@ -1,8 +1,6 @@
-import mongoose, { model, Schema } from "mongoose";
-import { IUserDocument, comparePasswordFunction } from "../interfaces/user.interface";
-const SALT_ROUNDS = 10;
-import bcrypt from "bcrypt";
-const User = new Schema<IUserDocument>({
+import { model, Schema } from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
+const User = new Schema({
   fullName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true },
@@ -10,19 +8,6 @@ const User = new Schema<IUserDocument>({
   sessions: Array,
   documents: [{ type: Schema.Types.ObjectId, ref: "Document" }],
 });
-User.pre("save", async function (next) {
-  const user = this as IUserDocument;
-  if (!user.isModified("password")) {return next();}
-  bcrypt.genSalt(SALT_ROUNDS, (err, salt)=>{
-    if(err) return next(err);
-    bcrypt.hash(user.password, salt).then((hash)=>user.password = hash).catch((err:mongoose.Error)=>next(err))
-  })
-});
 
-const comparePassword:comparePasswordFunction = function(this: any, potentialPassword, callback){
-  bcrypt.compare(potentialPassword, this.password, (err, isMatch)=>{
-    callback(err, isMatch)
-  })
-}
-User.methods.comparePassword = comparePassword;
+User.plugin(passportLocalMongoose);
 export default model("User", User);

@@ -5,6 +5,7 @@ import {
   getUser,
   loginUser,
 } from "../../controllers/user.controller";
+import passport from "passport";
 const router = express.Router();
 
 router.route("/signup").post(createUser);
