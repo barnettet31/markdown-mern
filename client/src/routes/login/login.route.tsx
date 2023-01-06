@@ -2,12 +2,58 @@ import { SubmitHandler } from "react-hook-form";
 import { AuthForm } from "../../components/authForm/authForm.component";
 import { AuthFormData } from "../../components/authForm/authForm.types";
 import { inputData, schema } from "./login.config";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { loginUser } from "../../api/api.handler";
+import LoadingIndicator from "../../components/loadingIndicator/loading.component";
+import { IErrorState } from "../signup/signup.route";
+import { useState } from "react";
+import ErrorModal from "../../components/error/errorModal.component";
+  const initialState = {
+    message: "",
+    isError: false,
+  };
 
-const LoginPage = () => {
+const LoginPage = () =>
+{
+
+  const [error, setError] = useState<IErrorState>(initialState);
+
+
   const { state } = useLocation();
-  const submitHandler: SubmitHandler<AuthFormData> = (data) =>
-    alert(JSON.stringify(data));
+
+  const navigate = useNavigate();
+  const { isLoading, mutateAsync } = useMutation("register", loginUser, {
+    onSuccess: async (data) =>
+    {
+      if(data.ok){
+
+        navigate("/", { state: await data.json() });
+      }
+      
+      handleSetError(data.statusText)
+    },
+    onError: (error) =>
+    {
+      if (error instanceof Error)
+      {
+        handleSetError(error.message);
+        throw Error("This is my error text");
+      }
+    },
+  });
+  const handleSetError = (data: string) =>setError({ isError: true, message: data });
+  const removeError = () => setError(initialState);
+  if (error.isError)
+    return (
+      <ErrorModal
+        message={`An error occured while trying to signup! ${error.message}`}
+        open={error.isError}
+        callback={removeError}
+      />
+    );
+
+  if (isLoading) return <LoadingIndicator />;
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -22,7 +68,7 @@ const LoginPage = () => {
       </div>
       <AuthForm
         schema={schema}
-        submitHandler={submitHandler}
+        submitHandler={mutateAsync}
         inputs={inputData}
       />
     </div>

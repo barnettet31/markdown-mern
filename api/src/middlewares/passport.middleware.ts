@@ -11,6 +11,8 @@ passport.use(
     async (username: string, password: string, done) => {
       try {
         const user = await User.findOne({ email: username });
+        console.log(user);
+        console.log("passed password:", password);
         //@ts-ignore
         if (user && (await user.comparePassword(password))) done(null, user);
         else done(null, false);

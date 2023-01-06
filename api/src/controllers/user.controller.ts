@@ -28,9 +28,9 @@ export const loginUser = (req: Request, res: Response, next: NextFunction) =>
 {
   passport.authenticate(
     "local",
-    { failureMessage: "wrong stuffs" },
     function (err, user, info)
     {
+      console.log({err,user, info});
       if (!user)
         return res
           .status(401)

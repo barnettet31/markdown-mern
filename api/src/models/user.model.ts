@@ -19,13 +19,15 @@ UserSchema.pre("save", async function (this, next: Function) {
 });
 
 UserSchema.methods.comparePassword = async function (enteredPassword: string) {
+
   const user = await usermodel
     .findOne({ username: this.email })
     .select("password");
+    if(user) console.log("does pass?", await bcrypt.compare(user.password, enteredPassword))
   return await bcrypt.compare(enteredPassword, user!.password);
 };
 
-export default model("User", UserSchema);
+export default model("Auth", UserSchema, "user");
 // usermodel.create({
 //   fullName: "Travis Barnette",
 //   email: "barnette.travis31@gmail.com",
