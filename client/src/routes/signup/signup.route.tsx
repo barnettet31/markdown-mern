@@ -9,10 +9,14 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const { isLoading, mutateAsync } = useMutation("register", registerUser, {
     onSuccess: async (data) => {
-      navigate("/login", { state: { success: true } });
+      console.log(data);
+      // navigate("/login", { state: { success: true } });
     },
     onError: (error) => {
-      throw Error("This is my error text");
+      if(error instanceof Error){
+        console.log(error.message);
+        throw Error("This is my error text",);
+      }
     },
   });
   if (isLoading) return <LoadingIndicator />;

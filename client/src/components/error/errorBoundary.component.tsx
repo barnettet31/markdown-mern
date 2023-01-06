@@ -15,7 +15,7 @@ export class ErrorBoundary extends React.Component<IProps, ErrorState> {
   }
   render(): React.ReactNode {
     if (this.state.hasError) {
-      console.log(this.state);
+      console.log('test')
       return this.props.errorElement;
     }
     return this.props.children;
