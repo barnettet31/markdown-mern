@@ -1,5 +1,5 @@
 import User from "../models/user.model";
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import passport from "../middlewares/passport.middleware";
 export const createUser = async (req: Request, res: Response, next:NextFunction) =>
 {
@@ -7,13 +7,13 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
   const takenEmail = await User.findOne({ email: email });
   const takenFullName = await User.findOne({ fullName: fullName });
   if (takenEmail || takenFullName)
-    return res.json({ message: "User already exists" });
+    return res.status(402).json({ message: "User already exists" });
   const user = await User.create({
     email,
     password,
     fullName,
   });
-  res.status(200).json({user})
+  res.status(201).json({user})
 };
 
 
@@ -30,7 +30,7 @@ export const loginUser = (req: Request, res: Response, next: NextFunction) =>
     "local",
     function (err, user, info)
     {
-      console.log({err,user, info});
+
       if (!user)
         return res
           .status(401)

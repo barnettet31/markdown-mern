@@ -19,7 +19,6 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const { isLoading, mutateAsync } = useMutation("register", registerUser, {
     onSuccess: async (data) => {
-      console.log(await data.json());
       navigate("/", { state: { success: true } });
     },
     onError: (error) => {
