@@ -1,10 +1,8 @@
-import { SubmitHandler } from "react-hook-form";
 import { AuthForm } from "../../components/authForm/authForm.component";
-import { AuthFormData } from "../../components/authForm/authForm.types";
 import { inputData, schema } from "./login.config";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import { loginUser } from "../../api/api.handler";
+import { loginUser, me } from "../../api/user.handler";
 import LoadingIndicator from "../../components/loadingIndicator/loading.component";
 import { IErrorState } from "../signup/signup.route";
 import { useState } from "react";
@@ -24,14 +22,17 @@ const LoginPage = () =>
 
   const navigate = useNavigate();
   const { isLoading, mutateAsync } = useMutation("register", loginUser, {
-    onSuccess: async (data) =>
+    onSuccess: async ({status, data:{message}}) =>
     {
-      if(data.ok){
-
-        navigate("/", { state: await data.json() });
+     
+     if(status === 200) {
+      const myUser =  await me();
+      if(myUser.status === 200) {
+        console.log(myUser.data);
+        navigate("/dashboard");
       }
-      
-      handleSetError(data.statusText)
+      handleSetError("Something went wrong, please try again later");
+    }
     },
     onError: (error) =>
     {

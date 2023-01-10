@@ -1,7 +1,7 @@
 import { AuthForm } from "../../components/authForm/authForm.component";
 import { schema, inputData } from "./signup.config";
 import { useMutation } from "react-query";
-import { registerUser } from "../../api/api.handler";
+import { registerUser } from "../../api/user.handler";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../components/loadingIndicator/loading.component";
 import { useState } from "react";

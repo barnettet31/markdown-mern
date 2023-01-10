@@ -13,14 +13,14 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
     password,
     fullName,
   });
-  res.status(201).json({user})
+  res.status(201).json({message:'success'})
 };
 
 
 export const me = async (req: Request, res: Response, next: NextFunction) =>
 {
   //@ts-ignore
-res.status(200).json({ email: req.user.email, documents: req.user.documents, fullName: req.user.fullName });
+res.status(200).json({ email: req.user.email, fullName: req.user.fullName, id: req.user._id, ...req.user });
 
 };
 
@@ -38,7 +38,7 @@ export const loginUser = (req: Request, res: Response, next: NextFunction) =>
       req.login(user, (err) =>
       {
         if (err) throw err;
-        res.status(201).json({ user });
+        res.status(201).json({ message:'success' });
       });
     }
   )(req, res, next);
