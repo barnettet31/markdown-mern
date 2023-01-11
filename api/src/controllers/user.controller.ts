@@ -26,6 +26,7 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
 
 export const me = async (req: Request, res: Response, next: NextFunction) =>
 {
+
 req.isAuthenticated() ? res.status(200).json({message:'success', user:req.user}) : res.status(401).json({message:'failure'});
 
 };

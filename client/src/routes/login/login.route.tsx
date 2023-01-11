@@ -22,18 +22,17 @@ const LoginPage = () =>
 
   const navigate = useNavigate();
   const { isLoading, mutateAsync } = useMutation("register", loginUser, {
-    onSuccess: async ({status, data:{message}}) =>
+    onSuccess: async (data) =>
     {
-     console.log(status, message);
-     if(status === 200) {
-      const myUser =  await me();
-      console.log("is this the user", myUser)
-      if(myUser.status === 200) {
-        console.log(myUser.data);
-        navigate("/dashboard");
+      if (data.status === 200)
+      {
+        console.log(data.data)
+       navigate('/', {state:{status: true}});
       }
-      handleSetError("Something went wrong, please try again later");
-    }
+      else
+      {
+        handleSetError(data.data.message);
+      }
     },
     onError: (error) =>
     {

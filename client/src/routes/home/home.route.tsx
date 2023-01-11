@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { AppTypography } from "../../components/typography/app-typography.component";
-import useDarkMode from "../../hooks/darkMode";
 
 const HomePage = () => {
+
   return (
     <div className="flex flex-col gap-4 w-full text-justify px-4 md:py-8">
       <AppTypography
