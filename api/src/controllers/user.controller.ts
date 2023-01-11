@@ -8,38 +8,34 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
   const takenFullName = await User.findOne({ fullName: fullName });
   if (takenEmail || takenFullName)
     return res.status(402).json({ message: "User already exists" });
-  const user = await User.create({
-    email,
-    password,
-    fullName,
+   User.register(new User({ email, fullName, username:email }), password, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Something went wrong" });
+    }
+    else{
+      req.logIn(user, function(err) {
+        if (err) { return res.json({success:false, message:err}); }
+        console.log(user);
+        return res.status(200).json({success:true, message:'success'});
+      });
+    }
   });
-  res.status(201).json({message:'success'})
 };
 
 
 export const me = async (req: Request, res: Response, next: NextFunction) =>
 {
-  //@ts-ignore
-res.status(200).json({ email: req.user.email, fullName: req.user.fullName, id: req.user._id, ...req.user });
+req.isAuthenticated() ? res.status(200).json({message:'success', user:req.user}) : res.status(401).json({message:'failure'});
 
 };
 
 export const loginUser = (req: Request, res: Response, next: NextFunction) =>
 {
-  passport.authenticate(
-    "local",
-    function (err, user, info)
-    {
-
-      if (!user)
-        return res
-          .status(401)
-          .json({ message: "Username or password is not matched" });
-      req.login(user, (err) =>
-      {
-        if (err) throw err;
-        res.status(201).json({ message:'success' });
-      });
-    }
-  )(req, res, next);
+  
+  // req.logIn(req.user, function(err) {
+  //   if (err) { return next(err); }
+  //   return res.status(200).json({ message:'testdata', isAuth:req.isAuthenticated(), user:req.user ? req.user : "dammit"});
+  // });
+  // res.status(200).json({ message:'testdata', isAuth:req.isAuthenticated(), user:req.user ? req.user : "dammit"});
 };

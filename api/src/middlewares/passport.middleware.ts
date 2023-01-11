@@ -1,38 +1,30 @@
 import passport from "passport";
+import express from "express";
 import { Strategy as LocalStrategy } from "passport-local";
-
 import User from "../models/user.model";
-import { Request } from "express";
-import userModel from "../models/user.model";
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import config from "../config/config";
+import flash from 'connect-flash';
+let uri = config.DATABASE_URL.replace("<PASSWORD>", config.DATABASE_PASSWORD);
 
-passport.use(
-  new LocalStrategy(
-    { usernameField: "email", passwordField: "password" },
-    async (username: string, password: string, done) => {
-      try {
-        const user = await User.findOne({ email: username });
-        console.log(user);
-        console.log("passed password:", password);
-        //@ts-ignore
-        if (user && (await user.comparePassword(password))) done(null, user);
-        else done(null, false);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  )
-);
 
-passport.serializeUser((user: any, done) => {
-  done(null, user._id);
-});
-passport.deserializeUser(async (req: Request, id: string, done: any) => {
-  try {
-    const user = await userModel.findById(id);
-    done(null, user);
-  } catch (error) {
-    done(error);
-  }
-});
-
-export default passport;
+export default function initPassportAndSession(app: express.Application) {
+  app.use(session({
+    secret: config.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7
+    },
+    name: "session",
+    store:MongoStore.create({mongoUrl:uri})
+  }));
+  app.use(flash());
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(new LocalStrategy(User.authenticate()));
+  //@ts-ignore
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+}

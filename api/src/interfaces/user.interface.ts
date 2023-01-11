@@ -8,6 +8,7 @@ export interface IUserDocument {
   createdAt: Date;
   sessions: AuthToken[];
   documents: string[];
+  comparePassword: (enteredPassword: string) => Promise<boolean>;
 }
 export interface AuthToken {
   accessToken: string;

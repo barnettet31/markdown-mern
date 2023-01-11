@@ -1,31 +1,26 @@
-import { model, Schema } from "mongoose";
-import bcrypt from "bcrypt";
-import { UserModel, IUserDocument } from "../interfaces/user.interface";
-import usermodel from "./user.model";
-const UserSchema = new Schema<IUserDocument, UserModel>({
+import { model, Schema, PassportLocalDocument, PassportLocalSchema } from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
+/**
+ * Interface to model the User Schema for TypeScript.
+ * @param email: string
+ * @param username: string
+ * **/
+export interface IUser extends PassportLocalDocument{
+  email: string;
+  createdAt: Date;
+  documents: string[];
+  fullName: string;
+
+}
+const UserSchema = new Schema({
   fullName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  sessions: Array,
   documents: [{ type: Schema.Types.ObjectId, ref: "Document" }],
 });
 
-UserSchema.pre("save", async function (this, next: Function) {
-  if (!this.isModified("password")) next();
+UserSchema.plugin(passportLocalMongoose);
 
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-});
-
-UserSchema.methods.comparePassword = async function (enteredPassword: string) {
-
-  const user = await usermodel
-    .findOne({ username: this.email })
-    .select("password");
-    if(user) console.log("does pass?", await bcrypt.compare(user.password, enteredPassword))
-  return await bcrypt.compare(enteredPassword, user!.password);
-};
 
 export default model("Auth", UserSchema, "user");
 // usermodel.create({

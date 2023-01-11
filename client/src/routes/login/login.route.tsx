@@ -24,9 +24,10 @@ const LoginPage = () =>
   const { isLoading, mutateAsync } = useMutation("register", loginUser, {
     onSuccess: async ({status, data:{message}}) =>
     {
-     
+     console.log(status, message);
      if(status === 200) {
       const myUser =  await me();
+      console.log("is this the user", myUser)
       if(myUser.status === 200) {
         console.log(myUser.data);
         navigate("/dashboard");
@@ -42,6 +43,8 @@ const LoginPage = () =>
         throw Error("This is my error text");
       }
     },
+    retry: 0,
+
   });
   const handleSetError = (data: string) =>setError({ isError: true, message: data });
   const removeError = () => setError(initialState);

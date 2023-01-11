@@ -1,8 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import {
   BrowserRouter,
-  createBrowserRouter,
-  createRoutesFromElements,
   Route,
   Routes,
 } from "react-router-dom";
@@ -14,6 +12,7 @@ import ProtectedRoute, {
 import { useSessionContext } from "../context/session.context";
 import { UserDashboard } from "../layouts/dashboard/user.layout";
 import { UserDocument } from "../components/userDocument/userDocument.component";
+import LoadingIndicator from "../components/loadingIndicator/loading.component";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
@@ -38,6 +37,7 @@ const MyRoutes = () => {
       <Route element={<HomeLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+
         <Route
           path="/signup"
           element={
