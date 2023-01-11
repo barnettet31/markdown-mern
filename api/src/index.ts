@@ -6,22 +6,30 @@ import cors from "cors";
 import session from "express-session";
 import init from "./database/init";
 import initPassportAndSession from "./middlewares/passport.middleware";
+import cookiepParser from 'cookie-parser';
 const allowedOrigins = ["http://localhost:5173"];
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-  credentials:true
-};
+
 const app = express();
 const port = 8080;
 
 init();
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   optionsSuccessStatus: 200,
   credentials:true
 }))
-
+app.use(cookiepParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

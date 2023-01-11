@@ -26,8 +26,9 @@ const LoginPage = () =>
     {
       if (data.status === 200)
       {
-        console.log(data.data)
-       navigate('/', {state:{status: true}});
+        const { data } = await me();
+        console.log(data)
+        navigate("/dashboard", { state: data });
       }
       else
       {
