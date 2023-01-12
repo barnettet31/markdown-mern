@@ -7,6 +7,7 @@ import LoadingIndicator from "../../components/loadingIndicator/loading.componen
 import { IErrorState } from "../signup/signup.route";
 import { useState } from "react";
 import ErrorModal from "../../components/error/errorModal.component";
+import { SessionContext, useSessionContext } from "../../context/session.context";
   const initialState = {
     message: "",
     isError: false,
@@ -16,7 +17,7 @@ const LoginPage = () =>
 {
 
   const [error, setError] = useState<IErrorState>(initialState);
-
+  const session = useSessionContext();
 
   const { state } = useLocation();
 
@@ -27,7 +28,8 @@ const LoginPage = () =>
       if (data.status === 200)
       {
         const { data } = await me();
-        console.log(data)
+        localStorage.setItem('token', JSON.stringify(data));
+        session?.setSession(true);
         navigate("/dashboard", { state: data });
       }
       else

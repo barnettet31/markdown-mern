@@ -1,21 +1,19 @@
-import { createContext, useContext, useState} from "react";
-import { initialSession, Session } from "../models/session";
-import { GeneralImportGlobOptions } from "vite/types/importGlob";
-
-export const SessionContext = createContext<[Session, (session: Session) => void]>([
-  initialSession,
-  () => {},
-]);
+import { createContext, useContext, useEffect, useState} from "react";
+interface SessionContextType {
+  session: boolean | null;
+  setSession: (session:boolean)=>void;
+}
+export const SessionContext = createContext<SessionContextType | null>(null);
 export const useSessionContext = () => useContext(SessionContext);
 interface IContextProps {
     children:React.ReactNode;
 }
 
 export const SessionContextProvider =({children}:IContextProps)=>{
-    const [session, setSession] = useState(initialSession);
-    const defaultSessionContext: [Session, typeof setSession] = [session, setSession];
+    const [session, setSession] = useState<boolean | null>(null);
+    const value = {session, setSession};
     return (
-        <SessionContext.Provider value={defaultSessionContext}>{children}</SessionContext.Provider>
+        <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
     )
 
 }
