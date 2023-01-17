@@ -29,8 +29,7 @@ const LoginPage = () =>
       {
         const { data } = await me();
         localStorage.setItem('token', JSON.stringify(data));
-        session?.setSession(true);
-        navigate("/dashboard", { state: data });
+        navigate("/dashboard", { replace: true })
       }
       else
       {

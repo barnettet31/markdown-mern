@@ -10,7 +10,7 @@ interface IContextProps {
 }
 
 export const SessionContextProvider =({children}:IContextProps)=>{
-    const [session, setSession] = useState<boolean | null>(null);
+    const [session, setSession] = useState<boolean | null>(localStorage.getItem('token') ? true : false);
     const value = {session, setSession};
     return (
         <SessionContext.Provider value={value}>{children}</SessionContext.Provider>

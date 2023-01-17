@@ -19,7 +19,7 @@ const MyRoutes = () => {
   return (
     <Routes>
       <Route element={<HomeLayout />}>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" index element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
 
         <Route
