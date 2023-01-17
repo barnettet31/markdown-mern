@@ -1,21 +1,17 @@
-import  {  lazy } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { lazy } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomeLayout } from "../layouts/home/home.layout";
 import { ErrorBoundary } from "../components/error/errorBoundary.component";
 import ProtectedRoute from "../components/protectedRoute/protectedRoute.component";
 import { UserDashboard } from "../layouts/dashboard/user.layout";
 import { UserDocument } from "../components/userDocument/userDocument.component";
+import { Welcome } from "./welcome/welcome.route";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
 const SignUpPage = lazy(() => import("./signup/signup.route"));
 const CodePage = lazy(() => import("./code/code.route"));
 const MyRoutes = () => {
-
   return (
     <Routes>
       <Route element={<HomeLayout />}>
@@ -40,8 +36,9 @@ const MyRoutes = () => {
             <UserDashboard />
           </ProtectedRoute>
         }>
+        <Route path="/dashboard/" index element={<Welcome />} />
         <Route
-          path=":id"
+          path="/dashboard/:id"
           element={
             <ProtectedRoute>
               <UserDocument />
@@ -52,4 +49,8 @@ const MyRoutes = () => {
     </Routes>
   );
 };
-export const ApplicationRouter = ()=> <BrowserRouter><MyRoutes/></BrowserRouter>
+export const ApplicationRouter = () => (
+  <BrowserRouter>
+    <MyRoutes />
+  </BrowserRouter>
+);
