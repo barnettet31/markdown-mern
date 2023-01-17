@@ -29,7 +29,7 @@ const LoginPage = () =>
       {
         const { data } = await me();
         localStorage.setItem('token', JSON.stringify(data));
-        navigate("/dashboard", { replace: true })
+        navigate("/dashboard/welcome", { replace: true })
       }
       else
       {
