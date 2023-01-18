@@ -14,7 +14,7 @@ export const UserDashboard = () => {
       <div className={`${styles.gridContainer} ${navOpen? styles.active : ""}`}>
         <Aside/>
         <Navigation navOpen={navOpen} handleToggle={()=>handleToggle()}/>
-        <main className={styles.main}>
+        <main className={`${styles.main} dark:bg-black text-white bg-secondary-gray`}>
           <Outlet />
         </main>
       </div>

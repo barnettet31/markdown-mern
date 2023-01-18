@@ -5,15 +5,14 @@ function checkSystemPreference() {
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
     // dark mode
+    console.log('fired')
     return "dark";
   }
   return "light";
 }
 
-const USER_PREFERENCE =
-  localStorage.getItem("theme") === null
-    ? checkSystemPreference()
-    : localStorage.getItem("theme");
+const USER_PREFERENCE = checkSystemPreference();
+   
 
 export default function useDarkMode() {
   const [darkMode, setDarkMode] = useState<string | null>(USER_PREFERENCE);
@@ -31,13 +30,15 @@ export default function useDarkMode() {
   };
   useEffect(() => {
     if (darkMode === "dark") {
+
       document.body.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      document.querySelector("body")?.classList.add("dark");
+     
     } else if (darkMode === "light") {
-      document.body.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+       document.querySelector("body")?.classList.remove("dark");
+
     } else {
-      document.body.classList.add("dark");
+        document.querySelector("body")?.classList.add("dark");
     }
   }, [darkMode]);
 
