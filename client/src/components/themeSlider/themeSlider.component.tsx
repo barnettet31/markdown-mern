@@ -1,7 +1,5 @@
-import sun from '../../assets/graphics/sun.svg';
-import moon from '../../assets/graphics/moon.svg';
 import { Switch } from '@headlessui/react';
-import { useCallback, useState } from 'react';
+import {  useState } from 'react';
 import useDarkMode from '../../hooks/darkMode';
 export const ThemeSlider = () => {
     const [darkMode, toggleDarkMode] = useDarkMode();
