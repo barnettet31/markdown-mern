@@ -29,7 +29,7 @@ const LoginPage = () =>
       {
         const { data } = await me();
         localStorage.setItem('token', JSON.stringify(data));
-        navigate("/dashboard/welcome", { replace: true })
+        navigate("/welcome", { replace: true })
       }
       else
       {
@@ -60,13 +60,13 @@ const LoginPage = () =>
 
   if (isLoading) return <LoadingIndicator />;
   return (
-    <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-primary-white">
+        <h2 className="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900 dark:text-primary-white">
           Sign in to your account
         </h2>
         {state?.success === true ? (
-          <p className="font-bold text-xs text-center mt-3">
+          <p className="mt-3 text-xs font-bold text-center">
             Please log in to your new account
           </p>
         ) : null}

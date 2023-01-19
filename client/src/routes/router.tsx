@@ -30,15 +30,15 @@ const MyRoutes = () => {
         <Route path="/code" element={<CodePage />} />
       </Route>
       <Route
-        path="/dashboard"
+        path="/"
         element={
           <ProtectedRoute>
             <UserDashboard />
           </ProtectedRoute>
         }>
-        <Route path="/dashboard/" index element={<Welcome />} />
+        <Route path="/welcome" index element={<Welcome />} />
         <Route
-          path="/dashboard/:id"
+          path="/:id"
           element={
             <ProtectedRoute>
               <UserDocument />

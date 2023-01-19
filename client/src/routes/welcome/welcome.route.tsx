@@ -1,7 +1,45 @@
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import styles from '../../layouts/dashboard/userLayout.module.css';
+import { useOutletContext } from 'react-router-dom';
+import { usePreview } from '../../layouts/dashboard/user.layout';
 export const Welcome = () => {
+    const {preview, setPreview} = usePreview()
 
-    return(
-        <div><h1>This is where my welcome page will go</h1> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vero autem temporibus dolorum voluptates eaque culpa harum, recusandae, hic deleniti ex nam iusto cumque commodi impedit mollitia molestias! Praesentium nulla eveniet nostrum, voluptatibus fugiat voluptas in sapiente dicta ipsam itaque temporibus soluta quisquam illo similique optio a quia recusandae, nesciunt, ratione reiciendis nisi. Amet tenetur sequi vitae nostrum pariatur error laudantium harum, cupiditate impedit id. Nihil, consectetur unde illum fugit labore ratione, exercitationem repellendus expedita non minus odio reprehenderit laudantium temporibus incidunt, numquam placeat aliquid? Quisquam architecto accusantium doloribus fugit minus enim perspiciatis? Quam dolorum dolorem modi quod architecto nisi rem neque sint, minus libero, amet, ab placeat labore explicabo officiis fugiat nam quas iure magnam aliquid? Sunt nesciunt exercitationem tempore atque laudantium, veritatis eveniet et illo necessitatibus perferendis, quos fugiat, minima aliquid. Facere ut quis dolor suscipit debitis cupiditate explicabo sequi aperiam voluptatum ratione inventore expedita, consequuntur officiis aliquid! Harum nostrum dolorem nemo id accusantium quos architecto totam eligendi quam, nobis possimus expedita fugiat rerum voluptate velit dolorum quo laudantium laborum culpa nesciunt. Autem omnis ducimus, totam doloremque soluta qui. Cum at magnam corrupti, animi accusantium id hic recusandae rerum deserunt, ut nam amet nostrum ipsa libero dolorem laudantium vel? Alias sit officiis natus labore aspernatur reprehenderit quibusdam deserunt autem, magnam sapiente ipsum debitis dolore eum repellat cupiditate asperiores eaque quae explicabo porro in impedit fuga dolorum! Vel alias at quam, reiciendis cumque nulla fugiat praesentium esse maiores velit omnis eos ipsum soluta. Totam assumenda, architecto voluptatibus repellat autem numquam provident molestiae sequi fugiat recusandae. Aspernatur nobis ad soluta reprehenderit quibusdam rem velit dolor officiis, perspiciatis ullam doloremque temporibus mollitia. Magnam necessitatibus tempora in maiores temporibus odit adipisci provident sint dolorem. Nobis harum aperiam quia? Deleniti, quo. Impedit eveniet consequuntur iusto officia dicta temporibus voluptate, qui saepe aliquid minima!</p></div>
-            
-    )
+    return (
+      <>
+        <div
+          className={`dark:bg-primary-black bg-secondary-white border-r border-gray-100 ${
+            styles.editor
+          } ${preview ? "hidden" : ""}`}>
+          <div className="flex justify-between w-full px-4 py-3 dark:bg-secondary-black bg-primary-white">
+            <h2 className="text-sm leading-4 text-default dark:text-tertiary-gray text-secondary-gray">
+              MARKDOWN
+            </h2>
+            <EyeIcon
+              onClick={() => setPreview()}
+              className="w-4 cursor-pointer md:hidden hover:text-primary-orange"
+            />
+          </div>
+        </div>
+        <div
+          className={`dark:bg-primary-black bg-secondary-white border-r border-gray-100  ${styles.preview}`}>
+          <div className="flex justify-between w-full px-4 py-3 dark:bg-secondary-black bg-primary-white">
+            <h2 className="text-sm leading-4 text-default dark:text-tertiary-gray text-secondary-gray">
+              PREVIEW
+            </h2>
+            {preview ? (
+              <EyeSlashIcon
+                onClick={() => setPreview()}
+                className="w-4 cursor-pointer hover:text-primary-orange"
+              />
+            ) : (
+              <EyeIcon
+                onClick={() => setPreview()}
+                className="w-4 cursor-pointer hover:text-primary-orange"
+              />
+            )}
+          </div>
+        </div>
+      </>
+    );
 }

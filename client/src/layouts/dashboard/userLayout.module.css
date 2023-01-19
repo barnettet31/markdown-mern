@@ -29,4 +29,29 @@
 
 .main{
     grid-area:main;
+    grid-template-areas: "editor preview"
+}
+.editor{
+    grid-area:editor;
+}
+.preview{
+    grid-area:preview;
+}
+
+.previewActive{
+    grid-template-areas: "preview"
+}
+@media (max-width: 500px) {
+    .main{
+        grid-template-areas: "editor"
+    }
+    .previewActive{
+        grid-template-areas: "preview"
+    }
+    .preview{
+        display:none;
+    }
+    .main.previewActive .preview{
+        display:block;
+    }
 }
