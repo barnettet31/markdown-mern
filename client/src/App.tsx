@@ -1,7 +1,6 @@
-import { Router, RouterProvider } from "react-router-dom";
 import { ErrorBoundary } from "./components/error/errorBoundary.component";
 import { ApplicationRouter } from "./routes/router";
-import useDarkMode from "./hooks/darkMode";
+import {useDarkMode} from "./hooks/darkMode";
 import { ApiClientProvider } from "./api/api.config";
 function App() {
   const data = useDarkMode();

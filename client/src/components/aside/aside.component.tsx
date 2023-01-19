@@ -24,8 +24,8 @@ export const Aside = () => {
         </button>
       </div>
       <div className="flex flex-col self-start flex-1 py-4 mt-6 overflow-scroll max-h-[500px] md:max-h-[1024px] lg:max-h-[900px] gap-7 scrollbar-hide">
-        {Array(25).fill(1).map((_) => (
-          <div className="flex items-center gap-4 cursor-pointer group">
+        {Array(25).fill(1).map((dta) => (
+          <div key={dta + Math.random()} className="flex items-center gap-4 cursor-pointer group">
             <DocumentIcon className="w-4 h-4 text-white hover:opacity-100" />
             <div>
               <p className="hidden text-sm font-light text-secondary-gray md:inline">
