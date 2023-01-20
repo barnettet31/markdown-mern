@@ -7,7 +7,7 @@ import LoadingIndicator from "../../components/loadingIndicator/loading.componen
 import { IErrorState } from "../signup/signup.route";
 import { useState } from "react";
 import ErrorModal from "../../components/error/errorModal.component";
-import { SessionContext, useSessionContext } from "../../context/session.context";
+import { setSessionCookie } from "../../context/session";
   const initialState = {
     message: "",
     isError: false,
@@ -17,24 +17,19 @@ const LoginPage = () =>
 {
 
   const [error, setError] = useState<IErrorState>(initialState);
-  const session = useSessionContext();
-
   const { state } = useLocation();
 
   const navigate = useNavigate();
   const { isLoading, mutateAsync } = useMutation("register", loginUser, {
-    onSuccess: async (data) =>
+    onSuccess: async ({status}) =>
     {
-      if (data.status === 200)
+      if (status === 200)
       {
-        const { data } = await me();
-        localStorage.setItem('token', JSON.stringify(data));
-        navigate("/welcome", { replace: true })
+        const {data, status} = await me();
+        if(status !== 200) throw Error("An error occured while trying to get user data");
+        setSessionCookie(data).then(() =>navigate("/welcome", { replace: true }))
       }
-      else
-      {
-        handleSetError(data.data.message);
-      }
+      
     },
     onError: (error) =>
     {

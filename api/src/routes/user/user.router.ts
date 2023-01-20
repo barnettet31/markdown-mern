@@ -33,11 +33,11 @@ router.post("/login", (req, res) =>
         console.log(info);
     })(req, res);
 })
-// router.post("/logout", function(req,res, next){
-//     req.logout(function(err){
-//         if(err) return next(err);
+router.post("/logout", function(req,res, next){
+    req.logout(function(err){
+        if(err) return next(err);
 
-//         res.status(200).json({message:'success'});
-//     });
-// })
+        res.status(200).json({message:'success'});
+    });
+})
 export default router;

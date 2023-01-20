@@ -5,9 +5,7 @@ export type ProtectedRouteProps ={
    children: JSX.Element;
 }
 export default function ProtectedRoute({children}:ProtectedRouteProps){
-    const session = useSessionContext();
-    console.log(session);
-
-    //will involve check for session
- return true ? children : <Navigate to="/login" state={{from:location}}/>
+      const session = useSessionContext();
+console.log(session.session)
+return session? children: <Navigate to="/login" state={{from:useLocation()}} />;
 }

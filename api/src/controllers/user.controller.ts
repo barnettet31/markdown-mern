@@ -1,6 +1,5 @@
 import User from "../models/user.model";
 import { NextFunction, Request, Response } from "express";
-import passport from "../middlewares/passport.middleware";
 export const createUser = async (req: Request, res: Response, next:NextFunction) =>
 {
   const { email, password, fullName } = req.body;
