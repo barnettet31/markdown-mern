@@ -6,6 +6,7 @@ import ProtectedRoute from "../components/protectedRoute/protectedRoute.componen
 import { UserDashboard } from "../layouts/dashboard/user.layout";
 import { UserDocument } from "./userDocument/userDocument.route";
 import { Welcome } from "./welcome/welcome.route";
+import { ErrorPage } from "../components/errorPage/errorPageComponent";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
@@ -41,7 +42,9 @@ const MyRoutes = () => {
           path="/:id"
           element={
             <ProtectedRoute>
-              <UserDocument />
+              <ErrorBoundary errorElement={<ErrorPage/>}>
+                <UserDocument />
+              </ErrorBoundary>
             </ProtectedRoute>
           }
         />
