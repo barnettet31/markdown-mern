@@ -4,7 +4,7 @@ import { HomeLayout } from "../layouts/home/home.layout";
 import { ErrorBoundary } from "../components/error/errorBoundary.component";
 import ProtectedRoute from "../components/protectedRoute/protectedRoute.component";
 import { UserDashboard } from "../layouts/dashboard/user.layout";
-import { UserDocument } from "../components/userDocument/userDocument.component";
+import { UserDocument } from "./userDocument/userDocument.route";
 import { Welcome } from "./welcome/welcome.route";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));

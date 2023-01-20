@@ -3,21 +3,12 @@ import styles from '../../layouts/dashboard/userLayout.module.css';
 import { usePreview } from '../../layouts/dashboard/user.layout';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import data from '../../data/data.json';
-import Editor, { useMonaco } from '@monaco-editor/react';
-import { useEffect, useState } from 'react';
-import { useTheme } from '../../context/theme.context';
+import {  useState } from 'react';
+import { CodeEditor } from '../../components/codeEditor/codeEditor.component';
 const markdown = data[1].content
 export const Welcome = () => {
     const {preview, setPreview} = usePreview();
-    const {darkMode } = useTheme()
     const [myMarkdown, setMyMarkdown] = useState<string | undefined>(markdown);
-    const monaco = useMonaco();
-    useEffect(()=>{
-      function updateEditorTheme() {
-        if(monaco) return monaco.editor.setTheme(darkMode === 'dark' ? 'vs-dark' : 'vs-light');
-      }
-      updateEditorTheme();
-    },[darkMode]);
     return (
       <>
         <div
@@ -33,39 +24,7 @@ export const Welcome = () => {
               className="w-4 cursor-pointer md:hidden text-secondary-gray dark:text-tertiary-gray hover:text-primary-orange"
             />
           </div>
-          <Editor
-            width={"100%"}
-            defaultLanguage="markdown"
-            defaultValue={myMarkdown}
-            options={{
-              codeLens: false,
-              contextmenu: false,
-              fontFamily: "Roboto Mono",
-              fontSize: 16,
-              minimap: {
-                enabled: false,
-              },
-              scrollBeyondLastLine: false,
-              scrollBeyondLastColumn: 0,
-              lineNumbers: "off",
-              links: false,
-              automaticLayout: true,
-              padding: {
-                top: 16,
-                bottom: 16,
-              },
-              wordWrap: "on",
-              renderLineHighlight: "none",
-              overviewRulerLanes: 0,
-              hideCursorInOverviewRuler: true,
-              scrollbar: {
-                vertical: "hidden",
-              },
-              overviewRulerBorder: false,
-            }}
-            keepCurrentModel={false}
-            onChange={(value) => setMyMarkdown(value)}
-          />
+          <CodeEditor markdown={myMarkdown} callback={setMyMarkdown} />
         </div>
         <div
           className={`dark:bg-primary-black  bg-secondary-white border-r border-gray-100  ${styles.preview}`}>

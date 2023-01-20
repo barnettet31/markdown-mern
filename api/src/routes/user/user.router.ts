@@ -4,6 +4,7 @@ import { createUser, me, loginUser } from "../../controllers/user.controller";
 import passport from "passport";
 import config from '../../config/config';
 import signature from 'cookie-signature';
+import documentModel from "../../models/document.model";
 const router = express.Router();
 router.route("/signup").post(createUser);
 
@@ -16,13 +17,13 @@ router.post("/login", (req, res) =>
         return res.status(400).json({ message: 'Please fill out all fields' });
     }
 
-    passport.authenticate('local', function (err, user, info)
+    passport.authenticate('local', async function (err, user, info)
     {
         if (err) { return res.status(500).json({ message: err }); }
         else
         {
             if (!user) return res.status(401).json({ message: 'Invalid credentials' });
-            req.logIn(user, function (err){ 
+            req.logIn(user, async function (err){ 
                 if (err) { return res.status(500).json({ message: err }); }
                 else
                 {
