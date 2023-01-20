@@ -1,8 +1,8 @@
 import { Switch } from '@headlessui/react';
 import {  useState } from 'react';
-import {useDarkMode} from '../../hooks/darkMode';
+import { useTheme } from '../../context/theme.context';
 export const ThemeSlider = () => {
-    const [darkMode, toggleDarkMode] = useDarkMode();
+    const {darkMode, toggleDarkMode} = useTheme()
     const [enabled, setEnabled] = useState(darkMode === 'dark');
     const handleToggle = () => {
         toggleDarkMode();
