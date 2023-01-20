@@ -20,7 +20,7 @@ const LoginPage = () =>
   const { state } = useLocation();
 
   const navigate = useNavigate();
-  const { isLoading, mutateAsync } = useMutation("register", loginUser, {
+  const { isLoading, mutateAsync, reset } = useMutation("register", loginUser, {
     onSuccess: async ({status}) =>
     {
       if (status === 200)
@@ -43,7 +43,10 @@ const LoginPage = () =>
 
   });
   const handleSetError = (data: string) =>setError({ isError: true, message: data });
-  const removeError = () => setError(initialState);
+  const removeError = () => {
+    setError(initialState);
+    reset();
+  };
   if (error.isError)
     return (
       <ErrorModal
