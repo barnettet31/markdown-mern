@@ -19,7 +19,7 @@ export const registerUser = async ({
 };
 
 export const logoutUser = async () => {
-  return api.get("/users/logout");
+  return api.post("/users/logout");
 }
 export const me = async () => {
   return api.get<IUserResult>("/users/me", {withCredentials: true});

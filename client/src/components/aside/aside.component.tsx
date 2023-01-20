@@ -3,9 +3,17 @@ import styles from "../../layouts/dashboard/userLayout.module.css";
 import { Logo } from "../logo/logo.component";
 import { ThemeSlider } from "../themeSlider/themeSlider.component";
 import { LogoutButton } from "../logoutButton/logoutButton.component";
+import { logoutUser } from "../../api/user.handler";
+import { removeSessionCookie } from "../../context/session";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const Aside = () => {
-  const logout = () => {console.log('logout')}//TODO implement logout
+  const navigation = useNavigate()
+  const logout = async() => {
+    await logoutUser(); 
+    removeSessionCookie();
+    navigation('/login', {replace:true})
+  }//TODO implement logout
   return (
     <div
       className={`bg-primary-black flex flex-col justify-between px-6 py-7 ${styles.aside}`}>

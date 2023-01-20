@@ -6,6 +6,7 @@ export type ProtectedRouteProps ={
 }
 export default function ProtectedRoute({children}:ProtectedRouteProps){
       const session = useSessionContext();
-console.log(session.session)
-return session? children: <Navigate to="/login" state={{from:useLocation()}} />;
+console.log("session", session.session)
+console.log("session data", session)
+return session.session? children: <Navigate to="/login" state={{from:useLocation()}} />;
 }
