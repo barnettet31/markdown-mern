@@ -5,11 +5,11 @@ import { createDocument, getDocuments, getDocument, updateDocument, deleteDocume
 const router = express.Router();
 
 router
-.get("/documents", getDocuments)
-.get('/documents/:id', getDocument)
-.post("/documents",createDocument)
-.put("/documents/:id",updateDocument)
-.delete("/documents/:id",deleteDocument)
+.get("/", getDocuments)
+.get('/:id', getDocument)
+.post("/",createDocument)
+.put("/:id",updateDocument)
+.delete("/:id",deleteDocument)
 
 
 export default router;

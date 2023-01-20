@@ -1,9 +1,7 @@
 import express from "express";
-import config from "./config/config";
-import mongoose from "mongoose";
 import UserRouter from "./routes/user/user.router";
+import DocumentRouter from './routes/documents/documents.router';
 import cors from "cors";
-import session from "express-session";
 import init from "./database/init";
 import initPassportAndSession from "./middlewares/passport.middleware";
 import cookieParser from 'cookie-parser';
@@ -51,6 +49,7 @@ app.use(function (req, res, next)
 });
 //USER ROUTER
 app.use("/api/users", UserRouter);
+app.use("/api/documents", DocumentRouter);
 app.listen(port, () => {
   console.log(`App started at http://localhost:${port}`);
 });

@@ -1,5 +1,5 @@
 import passport from "passport";
-import User from "../models/user.model";
+import User, { IUser } from "../models/user.model";
 import { NextFunction, Request, Response } from "express";
 export const createUser = async (req: Request, res: Response, next:NextFunction) =>
 {
@@ -32,9 +32,10 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
 export const me = async (req: Request, res: Response, next: NextFunction) =>
 {
   if(req.isAuthenticated()){
-    return res.status(200).json({ message:'success', user:req.user});
+    const userData = req.user as IUser
+    return res.status(200).json({ message:'success', user:userData.email});
   }else{
-    res.status(404).json({message:'not logged in'});
+    res.status(404).json({message:'not logged in'}).redirect('/login');
   }
 
 };
