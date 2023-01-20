@@ -3,7 +3,9 @@ import { DashBoardLogo } from "../logo/dashboardLogo.component";
 import { MenuIcon } from "../menuIcon/menuIcon.component";
 import { SaveIcon } from "../saveIcon/saveIcon.component";
 import styles from "../../layouts/dashboard/userLayout.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { DocumentControls } from "../documentControls/documentControls.component";
+import { usePreview } from "../../layouts/dashboard/user.layout";
 const CurrentDocument = ()=>{
   const {pathname} = useLocation();
   if(pathname ==='/welcome') return <div/>;
@@ -22,29 +24,19 @@ const CurrentDocument = ()=>{
   );
 }
 
-const DocumentControls = ()=>{
-  const {pathname} = useLocation();
-  if(pathname ==='/welcome') return <div/>
-  return (
-    <div className="flex items-center gap-6 md:gap-8">
-      <TrashIcon className="text-secondary-gray h-5 w-5 hover:text-primary-orange cursor-pointer" />
-      <button
-        type="button"
-        className="inline-flex items-center rounded-md border border-transparent bg-primary-orange px-3 md:px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-secondary-orange">
-        <SaveIcon className="h-4 w-4 md:-ml-1 md:mr-3 md:h-5 md:w-5" />
-        <span className="hidden md:inline">Save Changes</span>
-      </button>
-    </div>
-  );
-}
+
 export const Navigation = ({
   navOpen,
   handleToggle,
+  handleSubmit,
+  handleDelete
 }: {
   navOpen: boolean;
   handleToggle: () => void;
+  handleSubmit:(id:string)=>void;
+  handleDelete:(id:string)=>void;
 }) => {
-  const location = useLocation();
+  const {id} = useParams();
   return (
     <div
       className={`flex justify-between items-center bg-tertiary-black ${styles.nav}`}>
@@ -52,7 +44,12 @@ export const Navigation = ({
       <DashBoardLogo />
       <div className="flex justify-between gap-3 md:gap-0 px-4 md:px-5 w-full">
        <CurrentDocument/>
-       <DocumentControls/>
+       <DocumentControls onClick={()=>{
+        if(id) return handleSubmit(id)
+
+        }} onDelete={()=>{
+          if(id) return handleDelete(id);
+        }}/>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import mongoose, { ObjectId } from "mongoose";
-
-export interface IDocument extends mongoose.Document {
-    _id:string;
-    name:string;
+interface IDocumentData{
+    name: string;
     createdAt: Date;
     content: string;
     user: ObjectId;
+}
+export interface IDocument extends mongoose.Document, IDocumentData {
+    
 }

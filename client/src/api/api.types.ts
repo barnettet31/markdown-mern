@@ -14,3 +14,14 @@ export interface IDocumentResult{
         content:string
     }
 }
+interface IDocumentsElement{
+    createdAt:string;
+    name:string;
+    id:string;
+}
+export interface IDocumentsResults {
+    documents:IDocumentsElement[]
+}
+export interface ICreateResponse{
+    id:string;
+}

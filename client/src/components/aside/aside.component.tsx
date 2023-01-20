@@ -7,13 +7,25 @@ import { logoutUser } from "../../api/user.handler";
 import { removeSessionCookie } from "../../context/session";
 import {  useNavigate } from "react-router-dom";
 
+import { DocumentLinks } from "../documentLinks/documentLinks.component";
+import { createDocument } from "../../api/document.handler";
+
 export const Aside = () => {
-  const navigation = useNavigate()
+  const navigation = useNavigate();
   const logout = async() => {
     await logoutUser(); 
     removeSessionCookie();
     navigation('/login', {replace:true})
-  }//TODO implement logout
+  }
+  const createADocument = async ()=>{
+    try{
+      const {data} = await createDocument();
+      navigation(`/${data.id}`);
+
+    }catch(e){
+      console.log("An Error Occurred while creating the document",e)
+    }
+  }
   return (
     <div
       className={`bg-primary-black flex flex-col justify-between px-6 py-7 ${styles.aside}`}>
@@ -24,6 +36,7 @@ export const Aside = () => {
         </h2>
         <button
           type="button"
+          onClick={createADocument}
           className="inline-flex items-center justify-center w-full py-2 text-white border border-transparent rounded-md shadow-sm bg-primary-orange mt-7 hover:bg-secondary-orange">
           <PlusIcon className="w-3 h-3 md:-ml-1 md:mr-1" />
           <span className="text-sm leading-5 font-default font-regular">
@@ -32,19 +45,7 @@ export const Aside = () => {
         </button>
       </div>
       <div className="flex flex-col self-start flex-1 py-4 mt-6 overflow-scroll max-h-[500px] md:max-h-[1024px] lg:max-h-[900px] gap-7 scrollbar-hide">
-        {Array(25).fill(1).map((dta) => (
-          <div key={dta + Math.random()} className="flex items-center gap-4 cursor-pointer group">
-            <DocumentIcon className="w-4 h-4 text-white hover:opacity-100" />
-            <div>
-              <p className="hidden text-sm font-light text-secondary-gray md:inline">
-                Document Name
-              </p>
-              <p className="text-sm text-primary-white group-hover:text-primary-orange">
-                welcome.md
-              </p>
-            </div>
-          </div>
-        ))}
+      <DocumentLinks/>
       </div>
       <div className="flex flex-col gap-4">
         <LogoutButton logout={() => logout()} />
