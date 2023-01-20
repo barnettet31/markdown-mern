@@ -8,6 +8,7 @@ import { IErrorState } from "../signup/signup.route";
 import { useState } from "react";
 import ErrorModal from "../../components/error/errorModal.component";
 import { setSessionCookie } from "../../context/session";
+import { useSessionContext } from "../../context/session.context";
   const initialState = {
     message: "",
     isError: false,
@@ -18,6 +19,7 @@ const LoginPage = () =>
 
   const [error, setError] = useState<IErrorState>(initialState);
   const { state } = useLocation();
+  const {setSession} = useSessionContext();
 
   const navigate = useNavigate();
   const { isLoading, mutateAsync, reset } = useMutation("register", loginUser, {
@@ -26,8 +28,14 @@ const LoginPage = () =>
       if (status === 200)
       {
         const {data, status} = await me();
+        console.log(data);
         if(status !== 200) throw Error("An error occured while trying to get user data");
-        setSessionCookie(data).then(() =>setTimeout(()=>navigate("/welcome", { replace: true }),500))
+        if(data){
+
+          await setSessionCookie(data);
+          setSession(data);
+          setTimeout(()=>navigate("/welcome", { replace: true }),50);
+        }
       }
       
     },

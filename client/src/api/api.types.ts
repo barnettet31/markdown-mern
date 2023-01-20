@@ -7,3 +7,10 @@ export interface IUserResult{
     fullName:string;
     id:string;
 }
+export interface IDocumentResult{
+    document:{
+        createdAt:string;
+        name:string;
+        content:string
+    }
+}

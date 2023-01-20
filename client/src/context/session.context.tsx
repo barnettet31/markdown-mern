@@ -1,13 +1,10 @@
 import { createContext, useContext, useEffect, useState} from "react";
-import { useQuery } from "react-query";
-import { me } from "../api/user.handler";
-import { boolean } from "zod";
 import { IUserResult } from "../api/api.types";
 import { getSessionCookie } from "./session";
 interface SessionContextType {
   session: IUserResult | null;
 }
-export const SessionContext = createContext({session:getSessionCookie()});
+export const SessionContext = createContext({session:getSessionCookie(), setSession:(session: IUserResult | null) => {}});
 export const useSessionContext = () => useContext(SessionContext);
 interface IContextProps {
     children:React.ReactNode;
@@ -19,9 +16,9 @@ export const SessionContextProvider =({children}:IContextProps)=>{
     useEffect(() => {
         setSession(getSessionCookie())
     }, [session])
-    
+    const setMySession = (session:IUserResult | null) => setSession(session);
     return (
-        <SessionContext.Provider value={{session:session}}>{children}</SessionContext.Provider>
+        <SessionContext.Provider value={{session:session, setSession:setMySession}}>{children}</SessionContext.Provider>
     )
 
 }

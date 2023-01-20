@@ -1,10 +1,13 @@
 import api from "./api.client";
+import { IDocumentResult } from "./api.types";
 
 export const getDocuments = async () => {
     return api.get("/documents");
 }
 export const getDocument = async (id: string) => {
-    return api.get(`/documents/${id}`);
+    const {data}= await api.get<IDocumentResult>(`/documents/${id}`);
+    return data;
+
 }
 export const createDocument = async (data: any) => {
     return api.post("/documents", data);
