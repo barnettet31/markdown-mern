@@ -6,7 +6,7 @@ import api from "./api.client";
 import { ISignInResult, IUserResult } from "./api.types";
 
 export const loginUser = async ({ email, password }: IAuthFormData) => {
-  return api.post<ISignInResult>("/users/login", { username:email, password });
+  return api.post<ISignInResult>("/users/login", { username: email, password });
 };
 
 

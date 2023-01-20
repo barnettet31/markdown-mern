@@ -27,6 +27,6 @@ export default function initPassportAndSession(app: express.Application) {
   app.use(passport.session());
   passport.use(new LocalStrategy(User.authenticate()));
   //@ts-ignore
-  passport.serializeUser(User.serializeUser());
+  passport.serializeUser(User.serializeUser())
   passport.deserializeUser(User.deserializeUser());
 }

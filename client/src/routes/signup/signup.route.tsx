@@ -17,9 +17,10 @@ const initialState = {
 const SignUpPage = () => {
   const [error, setError] = useState<IErrorState>(initialState);
   const navigate = useNavigate();
-  const { isLoading, mutateAsync } = useMutation("register", registerUser, {
+  const { isLoading, mutateAsync, reset } = useMutation("register", registerUser, {
     onSuccess: async (data) => {
-      navigate("/", { state: { success: true } });
+      console.log(data);
+      navigate("/login", { state: { success: true } });
     },
     onError: (error) => {
       if(error instanceof Error){
@@ -29,7 +30,11 @@ const SignUpPage = () => {
     },
   });
   const handleSetError=(data:string)=>setError({isError:true,message:data});
-  const removeError = ()=>setError(initialState);
+  const removeError = ()=>{
+    setError(initialState);
+    reset();
+  
+  }
   
   if(error.isError) return <ErrorModal message={`An error occured while trying to signup! ${error.message}`} open={error.isError} callback={removeError}/>
   if (isLoading) return <LoadingIndicator />;

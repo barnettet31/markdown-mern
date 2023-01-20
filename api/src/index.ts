@@ -6,7 +6,7 @@ import cors from "cors";
 import session from "express-session";
 import init from "./database/init";
 import initPassportAndSession from "./middlewares/passport.middleware";
-import cookiepParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 const allowedOrigins = ["http://localhost:5173"];
 
 const app = express();
@@ -29,7 +29,7 @@ app.use(cors({
   optionsSuccessStatus: 200,
   credentials:true
 }))
-app.use(cookiepParser())
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -27,7 +27,7 @@ const LoginPage = () =>
       {
         const {data, status} = await me();
         if(status !== 200) throw Error("An error occured while trying to get user data");
-        setSessionCookie(data).then(() =>setTimeout(()=>navigate("/welcome", { replace: true }),50))
+        setSessionCookie(data).then(() =>setTimeout(()=>navigate("/welcome", { replace: true }),500))
       }
       
     },

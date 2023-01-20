@@ -1,34 +1,42 @@
+import passport from "passport";
 import User from "../models/user.model";
 import { NextFunction, Request, Response } from "express";
 export const createUser = async (req: Request, res: Response, next:NextFunction) =>
 {
   const { email, password, fullName } = req.body;
-  const takenEmail = await User.findOne({ email: email });
-  const takenFullName = await User.findOne({ fullName: fullName });
-  if (takenEmail || takenFullName)
-    return res.status(402).json({ message: "User already exists" });
-   User.register(new User({ email, fullName, username:email }), password, (err, user) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ message: "Something went wrong" });
-    }
-    else{
-      req.logIn(user, function(err) {
-        if (err) { return res.json({success:false, message:err}); }
-        console.log(user);
-        return res.status(200).json({success:true, message:'success'});
-      });
-    }
-  });
-};
-
+  try{
+    const takenEmail = await User.findOne({ email: email });
+    const takenFullName = await User.findOne({ fullName: fullName });
+    if (takenEmail || takenFullName) return res.status(402).json({ message: "User already exists" });
+    const newUser = new User({ email, fullName, password });
+    User.register(newUser, password, (err, user) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Something went wrong" });
+      }
+      req.logIn(user, function (err){
+        if (err) { return res.status(500).json({ message: err }); }
+        else
+        {
+          return res.status(200).json({message:'success'});
+        }
+      })
+      
+    });
+  }
+  catch(e){
+    console.log(e);
+  }
+}
 
 export const me = async (req: Request, res: Response, next: NextFunction) =>
 {
-console.log(req.cookies);
-console.log(req.session)
-console.log(req.user);
-res.send(req.user);
+  if(req.isAuthenticated()){
+    return res.status(200).json({ message:'success', user:req.user});
+  }else{
+    res.status(404).json({message:'not logged in'});
+  }
+
 };
 
 export const loginUser = (req: Request, res: Response, next: NextFunction) =>

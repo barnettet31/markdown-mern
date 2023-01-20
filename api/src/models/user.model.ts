@@ -1,10 +1,5 @@
-import { model, Schema, PassportLocalDocument, PassportLocalSchema } from "mongoose";
+import { model,  PassportLocalDocument, PassportLocalSchema, Schema } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
-/**
- * Interface to model the User Schema for TypeScript.
- * @param email: string
- * @param username: string
- * **/
 export interface IUser extends PassportLocalDocument{
   email: string;
   createdAt: Date;
@@ -19,10 +14,12 @@ const UserSchema = new Schema({
   documents: [{ type: Schema.Types.ObjectId, ref: "Document" }],
 });
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, {
+  usernameField:'email'
+});
 
 
-export default model("Auth", UserSchema, "user");
+export default model("User", UserSchema);
 // usermodel.create({
 //   fullName: "Travis Barnette",
 //   email: "barnette.travis31@gmail.com",
