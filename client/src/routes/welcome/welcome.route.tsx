@@ -5,21 +5,16 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import data from '../../data/data.json';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useEffect, useState } from 'react';
-import {useDarkMode} from '../../hooks/useDarkMode';
 import { useTheme } from '../../context/theme.context';
 const markdown = data[1].content
 export const Welcome = () => {
     const {preview, setPreview} = usePreview();
     const {darkMode } = useTheme()
     const [myMarkdown, setMyMarkdown] = useState<string | undefined>(markdown);
-    const [selectedTheme, setSelectedTheme] = useState<string>("vs-dark");
     const monaco = useMonaco();
     useEffect(()=>{
       function updateEditorTheme() {
-        console.log(darkMode, "fired yet again")
         if(monaco) return monaco.editor.setTheme(darkMode === 'dark' ? 'vs-dark' : 'vs-light');
-        // if(darkMode ==='light') setSelectedTheme('vs-light');
-        // if(darkMode ==='dark') setSelectedTheme('vs-dark');
       }
       updateEditorTheme();
     },[darkMode]);
@@ -35,7 +30,7 @@ export const Welcome = () => {
             </h2>
             <EyeIcon
               onClick={() => setPreview()}
-              className="w-4 cursor-pointer md:hidden hover:text-primary-orange"
+              className="w-4 cursor-pointer md:hidden text-secondary-gray dark:text-tertiary-gray hover:text-primary-orange"
             />
           </div>
           <Editor
@@ -69,7 +64,6 @@ export const Welcome = () => {
               overviewRulerBorder: false,
             }}
             keepCurrentModel={false}
-            theme={selectedTheme}
             onChange={(value) => setMyMarkdown(value)}
           />
         </div>
