@@ -6,7 +6,7 @@ export const createDocument = async (req: Request, res: Response, next: NextFunc
 export const getDocuments = async (req: Request, res: Response, next: NextFunction) =>{
     if(req.isAuthenticated()){
         const userData = req.user as IUser;
-        const myDocuments = await documentModel.find({user:userData.id}).select('id');
+        const myDocuments = await documentModel.find({user:userData.id}).select('id createdAt');
         if(!myDocuments) return res.status(200).json({documents:[]});
         res.status(200).json({documents:myDocuments});
     }
