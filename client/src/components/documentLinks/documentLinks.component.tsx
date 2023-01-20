@@ -10,9 +10,7 @@ export const DocumentLinks = ()=>{
     if(isError)return <div onClick={() => refetch()}>
             Ooops something wrong happened... Retry?
           </div>
-        
-      console.log("docs:",data?.documents);
-      if(data){
+      if(data?.documents){
         return (
           <>
             {data.documents.map(({ createdAt, name, id }) => (

@@ -58,4 +58,14 @@ export const getDocument = async (req: Request, res: Response, next: NextFunctio
     }
 }
 export const updateDocument = async (req: Request, res: Response, next: NextFunction) =>{}
-export const deleteDocument = async (req: Request, res: Response, next: NextFunction) =>{}
+export const deleteDocument = async (req: Request, res: Response, next: NextFunction) =>{
+    if(req.isAuthenticated()){
+        const {id} = req.params;
+        try{
+            const deletedDocument = await documentModel.findByIdAndDelete(id);
+            res.status(200).json({message:'success'});
+        }catch (e){
+            res.status(500).json({message:'delete failed'});
+        }
+    }
+}

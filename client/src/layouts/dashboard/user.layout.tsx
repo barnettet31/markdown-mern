@@ -1,8 +1,9 @@
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Navigate, Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import styles from  "./userLayout.module.css";
 import { useState } from "react";
 import { Navigation } from "../../components/navigation/navigation.component";
 import { Aside } from "../../components/aside/aside.component";
+import { deleteDocument } from "../../api/document.handler";
 export type Preview = {
   preview: boolean;
   setPreview: () => void;
@@ -20,6 +21,7 @@ export const UserDashboard = () => {
   const [markdown, setMarkDown] = useState("");
   const [name, setName] = useState("");
   const setPreview = () => setPreviewOpen(!preview);
+  const navigate = useNavigate();
   const handleToggle = ()=> setNavOpen(!navOpen);
   const setDocName = (d:string)=>setName(d);
   const setMarkDownChanges = (d: string) => setMarkDown(d);
@@ -28,8 +30,17 @@ export const UserDashboard = () => {
     console.log(markdown);
     console.log(id);
   }
-  const handleDelete =(id:string)=>{
-    console.log('delete this:', id)
+  const handleDelete = async (id:string)=>{
+    try{
+      const response = await deleteDocument(id);
+      if(response.status ===200){
+        navigate('/welcome', {replace:true});
+      }
+    }
+    catch(e){
+      if(e instanceof Error)throw new Error(e.message);
+      
+    }
   }
     return (
       <div
