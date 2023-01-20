@@ -5,7 +5,7 @@ import { ThemeSlider } from "../themeSlider/themeSlider.component";
 import { LogoutButton } from "../logoutButton/logoutButton.component";
 import { logoutUser } from "../../api/user.handler";
 import { removeSessionCookie } from "../../context/session";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export const Aside = () => {
   const navigation = useNavigate()
