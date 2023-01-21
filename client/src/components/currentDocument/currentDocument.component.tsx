@@ -3,18 +3,18 @@ import { useLocation, useParams } from "react-router-dom";
 import { getDocument } from "../../api/document.handler";
 import { useQuery } from "react-query";
 interface IProps {
-  documentName: string;
   handleChange: (value: string) => void;
+  name:string;
 }
-export const CurrentDocument = ({ documentName, handleChange }: IProps) => {
+export const CurrentDocument = ({  handleChange, name }: IProps) => {
   const { pathname } = useLocation();
   const { id } = useParams();
-  const { isLoading, isError, data } = useQuery(
+  const { isLoading } = useQuery(
     "document",
-    () => getDocument(id),
-    { enabled: id !== "welcome" }
+    () => getDocument(id)
   );
   if (pathname === "/welcome") return <div />;
+
   if (isLoading)
     return (
       <div className="flex gap-4 items-center lg:pl-5 lg:border-l-2 lg:border-gray-500 justify-between">
@@ -41,9 +41,8 @@ export const CurrentDocument = ({ documentName, handleChange }: IProps) => {
           <input
             type="text"
             name="name"
-            id="name"
             className="block w-full bg-transparent border-0 p-0 text-white outline-none placeholder-white sm:text-sm focus-within:border-b-primary-orange focus-within:border-b"
-            value={data?.document.name}
+            defaultValue={name}
             onChange={(e) => handleChange(e.target.value)}
           />
         </div>

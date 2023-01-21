@@ -15,7 +15,12 @@ export const getDocument = async (id: string | undefined) => {
 export const createDocument = async () => {
     return api.post<ICreateResponse>("/documents");
 }
-export const updateDocument = async (id: string, data: any) => {
+interface IUpdateData {
+    name: string;
+    markdown: string;
+}
+export const updateDocument = async (id: string |undefined, data: IUpdateData) => {
+    if(id === undefined) return;
     return api.put(`/documents/${id}`, data);
 }
 export const deleteDocument = async (id: string) => {

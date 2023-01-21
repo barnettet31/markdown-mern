@@ -18,8 +18,7 @@ const SignUpPage = () => {
   const [error, setError] = useState<IErrorState>(initialState);
   const navigate = useNavigate();
   const { isLoading, mutateAsync, reset } = useMutation("register", registerUser, {
-    onSuccess: async (data) => {
-      console.log(data);
+    onSuccess: async ({status}) => {
       navigate("/login", { state: { success: true } });
     },
     onError: (error) => {

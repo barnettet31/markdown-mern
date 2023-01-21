@@ -8,16 +8,22 @@ import { MarkDown } from "../../components/markdown/markdown.component";
 import { getDocument } from "../../api/document.handler";
 import { useQuery } from "react-query";
 import { ErrorPage } from "../../components/errorPage/errorPageComponent";
+import { useDocumentContext } from "../../context/document/document.context";
 export const UserDocument = () => {
   const [myMarkdown, setMyMarkdown] = useState<string | undefined>("");
   const { id } = useParams();
-  const { setMarkDown } = usePreview();
+  const {updateMarkDown} = useDocumentContext()
   const { isLoading, data, isError, error, refetch } = useQuery(
     "document",
     () => getDocument(id),
     {
       onSuccess: (data) => {
-        setMyMarkdown(data?.document.content);
+        if(data){
+          if(data.document){
+            updateMarkDown(data.document.content);
+            setMyMarkdown(data.document.content)
+          }
+        }
       },
     }
   );
@@ -46,7 +52,7 @@ export const UserDocument = () => {
           <CodeEditor
             markdown={myMarkdown}
             callback={(v) => {
-              setMarkDown(v);
+              updateMarkDown(v);
               setMyMarkdown(v);
             }}
           />

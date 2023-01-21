@@ -1,4 +1,3 @@
-import passport from "passport";
 import User, { IUser } from "../models/user.model";
 import { NextFunction, Request, Response } from "express";
 export const createUser = async (req: Request, res: Response, next:NextFunction) =>
@@ -8,10 +7,9 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
     const takenEmail = await User.findOne({ email: email });
     const takenFullName = await User.findOne({ fullName: fullName });
     if (takenEmail || takenFullName) return res.status(402).json({ message: "User already exists" });
-    const newUser = new User({ email, fullName, password });
+    const newUser = new User({ email, fullName, password, username:email });
     User.register(newUser, password, (err, user) => {
       if (err) {
-        console.log(err);
         return res.status(500).json({ message: "Something went wrong" });
       }
       req.logIn(user, function (err){

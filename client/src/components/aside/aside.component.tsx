@@ -25,6 +25,7 @@ export const Aside = ({handleToggle}:IProps) => {
     try{
       const {data} = await createDocument();
       queryClient.invalidateQueries('documents');
+      queryClient.invalidateQueries('document');
       handleToggle();
       navigation(`/${data.id}`);
 

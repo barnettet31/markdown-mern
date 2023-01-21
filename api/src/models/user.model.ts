@@ -10,9 +10,14 @@ export interface IUser extends PassportLocalDocument{
 const UserSchema = new Schema({
   fullName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true, lowercase: true },
+  username:{ type: String, required: true, unique: true, lowercase: true},
   createdAt: { type: Date, default: Date.now },
   documents: [{ type: Schema.Types.ObjectId, ref: "Document" }],
 });
+UserSchema.pre('save', function(next){
+  this.username = this.email;
+  next();
+})
 
 UserSchema.plugin(passportLocalMongoose, {
   usernameField:'email'

@@ -28,7 +28,6 @@ const LoginPage = () =>
       if (status === 200)
       {
         const {data, status} = await me();
-        console.log(data);
         if(status !== 200) throw Error("An error occured while trying to get user data");
         if(data){
 
