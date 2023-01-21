@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomeLayout } from "../layouts/home/home.layout";
 import { ErrorBoundary } from "../components/error/errorBoundary.component";
@@ -7,6 +7,7 @@ import { UserDashboard } from "../layouts/dashboard/user.layout";
 import { UserDocument } from "./userDocument/userDocument.route";
 import { Welcome } from "./welcome/welcome.route";
 import { ErrorPage } from "../components/errorPage/errorPageComponent";
+import LoadingIndicator from "../components/loadingIndicator/loading.component";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
@@ -43,7 +44,9 @@ const MyRoutes = () => {
           element={
             <ProtectedRoute>
               <ErrorBoundary errorElement={<ErrorPage/>}>
+                <Suspense fallback={<LoadingIndicator/>}>
                 <UserDocument />
+              </Suspense>
               </ErrorBoundary>
             </ProtectedRoute>
           }
