@@ -49,7 +49,7 @@ export const UserDashboard = () => {
     return (
       <div
         className={`${styles.gridContainer} ${navOpen ? styles.active : ""}`}>
-        <Aside />
+        <Aside handleToggle={()=>handleToggle()}/>
         <Navigation navOpen={navOpen} handleToggle={() => handleToggle()} handleSubmit={handleSubmit} handleDelete={handleDelete} />
         <main
           className={`${styles.main} ${preview ? styles.previewActive: "" } dark:bg-black text-white bg-secondary-gray grid`}>

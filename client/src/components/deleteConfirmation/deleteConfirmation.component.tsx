@@ -8,6 +8,7 @@ interface IProps{
 }
 export const DeleteConfirmation = ({confirmDelete,
 cancelDelete, isDelete}:IProps)=>{
+
 return (
   <Transition appear show={isDelete} as={Fragment}>
     <Dialog as="div" className="relative z-10 bg-black/75" onClose={cancelDelete}>
@@ -48,7 +49,7 @@ return (
               <div className="mt-4">
                 <button
                   type="button"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex justify-center w-full rounded-md border border-transparent bg-primary-orange px-4 py-2 text-sm font-medium text-white hover:bg-secondary-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   onClick={confirmDelete}>
                   Confirm & Delete
                 </button>

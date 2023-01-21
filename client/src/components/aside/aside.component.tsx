@@ -1,4 +1,4 @@
-import {  DocumentIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import styles from "../../layouts/dashboard/userLayout.module.css";
 import { Logo } from "../logo/logo.component";
 import { ThemeSlider } from "../themeSlider/themeSlider.component";
@@ -10,8 +10,10 @@ import {  useNavigate } from "react-router-dom";
 import { DocumentLinks } from "../documentLinks/documentLinks.component";
 import { createDocument } from "../../api/document.handler";
 import { useQueryClient } from "react-query";
-
-export const Aside = () => {
+interface IProps {
+  handleToggle:()=>void;
+}
+export const Aside = ({handleToggle}:IProps) => {
   const navigation = useNavigate();
   const queryClient = useQueryClient()
   const logout = async() => {
@@ -23,6 +25,7 @@ export const Aside = () => {
     try{
       const {data} = await createDocument();
       queryClient.invalidateQueries('documents');
+      handleToggle();
       navigation(`/${data.id}`);
 
     }catch(e){

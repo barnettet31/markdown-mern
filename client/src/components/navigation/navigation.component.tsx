@@ -22,6 +22,10 @@ export const Navigation = ({
 }) => {
   const [showDelete, setDelete] = useState(false);
   const {id} = useParams();
+  const toggleDelete =()=>{
+    setDelete(false);
+    handleDelete(id);
+  }
   return (
     <div
       className={`flex justify-between items-center bg-tertiary-black ${styles.nav}`}>
@@ -33,7 +37,7 @@ export const Navigation = ({
         if(id) return handleSubmit(id)
 
         }} onDelete={()=>setDelete(true)}/>
-         <DeleteConfirmation confirmDelete={()=>handleDelete(id)} cancelDelete={()=>setDelete(false)} isDelete={showDelete}/>
+         <DeleteConfirmation confirmDelete={()=>toggleDelete()} cancelDelete={()=>setDelete(false)} isDelete={showDelete}/>
       </div>
     </div>
   );
