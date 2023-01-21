@@ -11,7 +11,7 @@ export const DocumentControls = ({onClick, onDelete}:{onClick:()=>void, onDelete
       <button
         type="button"
         onClick={onClick}
-        className="inline-flex items-center rounded-md border border-transparent bg-primary-orange px-3 md:px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-secondary-orange">
+        className="inline-flex items-center rounded-md border border-transparent bg-primary-orange px-3 md:px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-secondary-orange ease-in-out">
         <SaveIcon className="h-4 w-4 md:-ml-1 md:mr-3 md:h-5 md:w-5" />
         <span className="hidden md:inline">Save Changes</span>
       </button>

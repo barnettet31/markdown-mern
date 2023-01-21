@@ -9,9 +9,11 @@ import {  useNavigate } from "react-router-dom";
 
 import { DocumentLinks } from "../documentLinks/documentLinks.component";
 import { createDocument } from "../../api/document.handler";
+import { useQueryClient } from "react-query";
 
 export const Aside = () => {
   const navigation = useNavigate();
+  const queryClient = useQueryClient()
   const logout = async() => {
     await logoutUser(); 
     removeSessionCookie();
@@ -20,6 +22,7 @@ export const Aside = () => {
   const createADocument = async ()=>{
     try{
       const {data} = await createDocument();
+      queryClient.invalidateQueries('documents');
       navigation(`/${data.id}`);
 
     }catch(e){

@@ -22,7 +22,7 @@ export const CodeEditor = ({ markdown, callback }: IEditorProps) => {
     <Editor
       width={"100%"}
       defaultLanguage="markdown"
-      defaultValue={markdown}
+      value={markdown}
       options={{
         codeLens: false,
         contextmenu: false,
