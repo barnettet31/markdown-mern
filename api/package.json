@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "test",
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "build": "tsc",
+    "start":"node ./dist/index.js"
   },
   "author": "Travis Barnette",
   "license": "ISC",
