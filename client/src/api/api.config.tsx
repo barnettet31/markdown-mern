@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 export const queryClient = new QueryClient({
@@ -12,5 +13,9 @@ interface IClientProps {
   children?: React.ReactNode;
 }
 export const ApiClientProvider = ({ children }: IClientProps) => (
-  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  <QueryClientProvider client={queryClient} contextSharing={true}>
+
+      {children}
+
+  </QueryClientProvider>
 );

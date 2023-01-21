@@ -6,7 +6,8 @@ export const getDocuments = async () => {
     
     return data;
 }
-export const getDocument = async (id: string) => {
+export const getDocument = async (id: string | undefined) => {
+    if(id === undefined) return;
     const {data}= await api.get<IDocumentResult>(`/documents/${id}`);
     return data;
 

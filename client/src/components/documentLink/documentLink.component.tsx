@@ -1,4 +1,5 @@
 import { DocumentIcon } from "@heroicons/react/24/outline";
+import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 
 export const DocumentLink = ({
@@ -10,6 +11,7 @@ export const DocumentLink = ({
   name: string;
   createdAt: string;
 }) => {
+  const queryClient = useQueryClient();
   return (
     <Link to={`/${id}`}>
       <div key={id} className="flex items-center gap-4 cursor-pointer group">

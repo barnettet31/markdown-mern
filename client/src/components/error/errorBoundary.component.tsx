@@ -12,10 +12,11 @@ export class ErrorBoundary extends React.Component<IProps, ErrorState> {
   };
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     this.setState({ hasError: true });
+    console.log("Error:", error);
+    console.warn("Error Info:" ,errorInfo)
   }
   render(): React.ReactNode {
     if (this.state.hasError) {
-      console.log('test')
       return this.props.errorElement;
     }
     return this.props.children;
