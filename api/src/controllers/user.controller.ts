@@ -30,7 +30,7 @@ export const createUser = async (req: Request, res: Response, next:NextFunction)
 export const me = async (req: Request, res: Response, next: NextFunction) =>
 { 
   //@ts-ignore
-  console.log(req.session.passport?.user);
+  console.log("in the me path",req.session.passport?.user);
   if(req.isAuthenticated()){
     const userData = req.user as IUser
     return res.status(200).json({ message:'success', user:userData.email});
