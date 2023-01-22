@@ -7,13 +7,19 @@ router.route("/register").post(createUser);
 
 router.get("/me", me);
 
-router.post("/login", passport.authenticate('local', (req, res, next) =>{
-    console.log('in the login route');
-    console.log(req.user);
-    console.log(req.session.passport?.user);
-    console.log(req.isAuthenticated());
-    res.status(200).json({ message:'successs', isAuth:req.isAuthenticated()});
-})
+router.post("/login", function (req, res, next)
+{
+    passport.authenticate('local', function (err, user, info)
+    {
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/login'); }
+
+        // NEED TO CALL req.login()!!!
+        req.login(user, next);
+    })(req, res, next);
+}, function (req, res, next){
+    res.status(200).json({ message: 'success' });
+}
 );
 router.post("/logout", function (req, res, next)
 {
