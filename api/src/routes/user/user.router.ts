@@ -7,7 +7,8 @@ router.route("/register").post(createUser);
 
 router.get("/me", me);
 
-router.post("/login", (req, res) =>passport.authenticate('local'), (req, res) => {
+router.post("/login", passport.authenticate('local'), (req, res) => {
+    console.log(req.user);
     res.status(200).json({message:'success'});
 }
 )
