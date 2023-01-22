@@ -33,7 +33,8 @@ export const me = async (req: Request, res: Response, next: NextFunction) =>
     const userData = req.user as IUser
     return res.status(200).json({ message:'success', user:userData.email});
   }else{
-    res.status(404).json({message:'not logged in'}).redirect('/login');
+    console.log('user not authed')
+    res.status(404).json({message:'not logged in'});
   }
 
 };
