@@ -36,8 +36,8 @@ initPassportAndSession(app);
 
 // const connection = mongoose.createConnection(DB, {});
 app.use((req, res, next) => {
-  console.log(req.session);
-  console.log(req.user? req.user : "no user");
+  console.log("SESSIONS:", req.session);
+  console.log("COOKIES:", req.cookies);
   next();
 });
 app.use(function (req, res, next)

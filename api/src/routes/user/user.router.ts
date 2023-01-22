@@ -27,6 +27,7 @@ router.post("/login", (req, res) =>
                 if (err) { return res.status(500).json({ message: err }); }
                 else
                 {
+                    console.log("user in passport",user);
                     return res.status(200).json({message:'success'});
                 }
             })
