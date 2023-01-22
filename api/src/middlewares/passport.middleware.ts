@@ -18,7 +18,7 @@ export default function initPassportAndSession(app: express.Application) {
       maxAge: 100 * 60 * 60 * 24 * 7
     },
     name: "session",
-    store:MongoStore.create({mongoUrl:uri, collectionName:'sessions'})
+    store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(flash());
