@@ -18,7 +18,7 @@ export const Navigation = ({
   handleToggle: () => void;
 }) => {
   const [showDelete, setDelete] = useState(false);
-  const {handleDelete, postUpdate,name, updateName} = useDocumentContext();
+  const {handleDelete, postUpdate, name, updateName} = useDocumentContext();
   const { id } = useParams();
   const toggleDelete = () => {
     if(!id) return

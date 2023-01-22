@@ -42,7 +42,7 @@ export const CurrentDocument = ({  handleChange, name }: IProps) => {
             type="text"
             name="name"
             className="block w-full bg-transparent border-0 p-0 text-white outline-none placeholder-white sm:text-sm focus-within:border-b-primary-orange focus-within:border-b"
-            defaultValue={name}
+            value={name}
             onChange={(e) => handleChange(e.target.value)}
           />
         </div>

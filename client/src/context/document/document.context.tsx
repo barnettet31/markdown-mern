@@ -26,8 +26,11 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
     const [documentName, setDocumentName] = useState('');
     const { refetch } = useQuery("document", () => getDocument(id), {
       onSuccess: (data) => {
-        setMarkDown(data?.document.content ?? "");
-        setDocumentName(data?.document.name ?? "");
+        console.log(data?.document)
+        if(data){
+          setMarkDown(data.document.content);
+          setDocumentName(data.document.name);
+        }
       },
     });
     const {isLoading, mutate} = useMutation('updateDocument', ()=>updateDocument(id, {markdown:markdown, name:documentName}), {
@@ -52,7 +55,8 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
     const updateName = (data: string) => setDocumentName(data);
     const postUpdate =()=>mutate()
     useEffect(()=>{
-        refetch();
+      console.log(id)
+     queryClient.invalidateQueries('document');
     },[id])
     
     return (
