@@ -8,7 +8,6 @@ import config from "../config/config";
 import flash from 'connect-flash';
 import path from "path";
 let uri = config.DATABASE_URL;
-console.log(uri);
 
 export default function initPassportAndSession(app: express.Application) {
   app.use(session({

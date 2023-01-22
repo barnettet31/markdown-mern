@@ -9,6 +9,7 @@ try{
     console.log("MongoDB Connected...");
 }catch(e){
     if(e instanceof Error){
+    console.log('the error is here in the user database connect.')
     console.error(e.message);
     process.exit(1);
 }
