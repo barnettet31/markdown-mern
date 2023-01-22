@@ -7,7 +7,7 @@ import MongoStore from 'connect-mongo';
 import config from "../config/config";
 import flash from 'connect-flash';
 import path from "path";
-let uri = config.DATABASE_URL;
+let uri = config.USER_DATABASE_URL.replace("<PASSWORD>", config.DATABASE_PASSWORD);
 
 export default function initPassportAndSession(app: express.Application) {
   app.use(session({
