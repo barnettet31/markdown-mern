@@ -18,7 +18,7 @@ export default function initPassportAndSession(app: express.Application) {
   }));
   // app.use(express.static(path.join(__dirname, 'public')));
   app.use(flash());
-  passport.use(new LocalStrategy(User.authenticate()));
+  passport.use('local',new LocalStrategy(User.authenticate()));
 
   app.use(passport.initialize());
   app.use(passport.session());
