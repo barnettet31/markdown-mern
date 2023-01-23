@@ -23,7 +23,7 @@ export default function initPassportAndSession(app: express.Application) {
     store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
   app.use(flash());
-  passport.use(User.createStrategy());
+  passport.use(new LocalStrategy(User.authenticate()));
 
   app.use(passport.initialize());
   app.use(passport.session());
