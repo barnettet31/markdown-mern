@@ -29,12 +29,10 @@ const LoginPage = () =>
       console.log(data);
       {
         const {data, status, config} = await me();
-        console.log(config, "me config");
         if(status !== 200) throw Error("An error occured while trying to get user data");
         if(data){
-
-          await setSessionCookie(data);
           setSession(data);
+          await setSessionCookie(data);
           setTimeout(()=>navigate("/welcome", { replace: true }),50);
         }
       }
