@@ -2,6 +2,8 @@ import express from "express";
 
 import { createUser, me } from "../../controllers/user.controller";
 import passport from "passport";
+import signature from 'cookie-signature'
+import config from "../../config/config";
 const router = express.Router();
 router.route("/register").post(createUser);
 
@@ -18,7 +20,8 @@ router.post("/login", function (req, res, next)
         req.login(user, next);
     })(req, res, next);
 }, function (req, res, next){
-    res.status(200).json({ message: 'success' });
+
+    res.cookie('session', 's:' + signature.sign(req.sessionID, config.SESSION_SECRET));
 }
 );
 router.post("/logout", function (req, res, next)
