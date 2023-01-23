@@ -20,8 +20,8 @@ router.post("/login", function (req, res, next)
         req.login(user, next);
     })(req, res, next);
 }, function (req, res, next){
-
-    res.cookie('session', 's:' + signature.sign(req.sessionID, config.SESSION_SECRET)).status(200).json({ message: 'success' });
+    console.log(req.user, "login user being set here");
+    res.status(200).json({ message: 'success' });
 }
 );
 router.post("/logout", function (req, res, next)

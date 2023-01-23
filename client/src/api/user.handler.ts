@@ -22,5 +22,5 @@ export const logoutUser = async () => {
   return api.post("/users/logout");
 }
 export const me = async () => {
-  return api.get<IUserResult>("/users/me", {withCredentials: true});
+  return api.get<IUserResult>("/users/me");
 }
