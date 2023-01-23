@@ -22,7 +22,8 @@ router.post("/login", function (req, res, next)
             if (err) return res.status(500).json({ message: err });
             console.log("this is in the login phase once the user has been logged in", req.user);
             console.log(req.session);
-            return res.status(200).cookie('poop', 'poop', {
+            return res.status(200).cookie('connect.sid', req.sessionID, {
+                httpOnly: true,
                 sameSite:'strict'
             }).json({ message: 'success' });
 
