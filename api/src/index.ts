@@ -4,8 +4,6 @@ import DocumentRouter from './routes/documents/documents.router';
 import cors from "cors";
 import init from "./database/init";
 import initPassportAndSession from "./middlewares/passport.middleware";
-import cookieParser from 'cookie-parser';
-const allowedOrigins = ["http://localhost:5173"];
 
 const app = express();
 const port = 8080;
