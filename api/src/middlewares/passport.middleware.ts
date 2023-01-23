@@ -22,6 +22,7 @@ export default function initPassportAndSession(app: express.Application) {
     cookie: { secure: true },
     store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
+
   app.use(flash());
   passport.use(new LocalStrategy(User.authenticate()));
 
