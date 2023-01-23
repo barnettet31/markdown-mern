@@ -19,13 +19,22 @@ const MyRoutes = () => {
     <Routes>
       <Route element={<HomeLayout />}>
         <Route path="/" index element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<LoadingIndicator />}>
+              <LoginPage />
+            </Suspense>
+          }
+        />
 
         <Route
           path="/signup"
           element={
             <ErrorBoundary errorElement={<div>Oops...</div>}>
-              <SignUpPage />
+              <Suspense fallback={<LoadingIndicator />}>
+                <SignUpPage />
+              </Suspense>
             </ErrorBoundary>
           }
         />
@@ -37,10 +46,9 @@ const MyRoutes = () => {
         element={
           <ProtectedRoute>
             <DocumentContextProvider>
-            <UserDashboard />
+              <UserDashboard />
             </DocumentContextProvider>
           </ProtectedRoute>
-
         }>
         <Route path="/welcome" index element={<Welcome />} />
         <Route
@@ -49,7 +57,7 @@ const MyRoutes = () => {
             <ProtectedRoute>
               <ErrorBoundary errorElement={<ErrorPage />}>
                 <Suspense fallback={<LoadingIndicator />}>
-                    <UserDocument />
+                  <UserDocument />
                 </Suspense>
               </ErrorBoundary>
             </ProtectedRoute>
