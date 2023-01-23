@@ -20,13 +20,14 @@ export default function initPassportAndSession(app: express.Application) {
     name: "session",
     store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
-  app.use(express.static(path.join(__dirname, 'public')));
+  // app.use(express.static(path.join(__dirname, 'public')));
   app.use(flash());
   passport.use(new LocalStrategy(User.authenticate()));
+  app.use(passport.initialize());
+  app.use(passport.session());
   //@ts-ignore
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
-  app.use(passport.initialize());
-  app.use(passport.session());
+ 
 
 }
