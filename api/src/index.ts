@@ -15,19 +15,19 @@ app.use(cors({
   credentials: true,
 }));
 
-initPassportAndSession(app);
 app.use(function (req, res, next)
 {
-  console.log(req.user);
+  console.log(req.headers.origin);
   res.header("Access-Control-Allow-Origin", "https://barnettet31.github.io/");
   res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials");
   res.header('Access-Control-Allow-Credentials', "true");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   console.log("headers set");
-
+  
   next();
 });
 
+initPassportAndSession(app);
 // const connection = mongoose.createConnection(DB, {});
 
 
