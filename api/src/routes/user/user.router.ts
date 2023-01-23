@@ -21,6 +21,10 @@ router.post("/login", function (req, res, next)
     })(req, res, next);
 }, function (req, res, next){
     console.log(req.user, "login user being set here");
+    console.log(req.cookies,"cookies set here");
+    console.log(req.session,"session set here");
+    console.log(req.sessionID,"sessionID set here");
+    console.log(req.signedCookies,"signedCookies set here");
     res.status(200).json({ message: 'success' });
 }
 );
