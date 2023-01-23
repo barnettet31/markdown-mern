@@ -13,7 +13,7 @@ export default function initPassportAndSession(app: express.Application) {
   app.use(session({
     secret: config.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       maxAge: 100 * 60 * 60 * 24 * 7
     },
