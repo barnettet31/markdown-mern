@@ -3,7 +3,8 @@ import express from "express";
 import { Strategy as LocalStrategy } from "passport-local";
 import User from "../models/user.model";
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
+import MongoStore from 'connect-mongo'
+import cookieSession from 'cookie-session'
 import config from "../config/config";
 import flash from 'connect-flash';
 import path from "path";
@@ -15,12 +16,11 @@ export default function initPassportAndSession(app: express.Application) {
   app.use(cookieParser());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(session({
-    secret: config.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: false,
-    cookie: { secure: true, sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 * 14 },
-    store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
+  app.use(cookieSession({
+    name: 'session',
+    keys: [config.SESSION_SECRET],
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    
   }));
 
   app.use(flash());
