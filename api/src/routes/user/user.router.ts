@@ -2,8 +2,6 @@ import express from "express";
 
 import { createUser, me } from "../../controllers/user.controller";
 import passport from "passport";
-import signature from 'cookie-signature'
-import config from "../../config/config";
 const router = express.Router();
 router.route("/register").post(createUser);
 

@@ -32,6 +32,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) =>
   console.log("in the me path",req.user);
   console.log('cookies',req.cookies);
   console.log('session',JSON.stringify(req.session));
+  console.log('sessionID ME ~~~~~~',req.sessionID);
   if(req.isAuthenticated()){
     const userData = req.user as IUser
     return res.status(200).json({ message:'success', user:userData.email});
