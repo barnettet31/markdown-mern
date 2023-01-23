@@ -18,7 +18,7 @@ router.post("/login", function (req, res, next)
         req.logIn(user, next);
     })(req, res, next);
 }, function (req, res, next){
-
+    console.log("this is in the login phase once the user has been logged in", req.user);
     res.status(200).json({ message: 'success' });
 }
 );
