@@ -11,9 +11,11 @@ router.post("/login", function (req, res, next)
 {
     passport.authenticate('local', function (err, user, info)
     {
+
         if (err) { return next(err); }
         if (!user) { return res.redirect('/login'); }
-
+        console.log(user)
+        console.log("information",info);
         // NEED TO CALL req.login()!!!
         req.logIn(user, (err) =>
         {
@@ -24,11 +26,6 @@ router.post("/login", function (req, res, next)
 
         });
     })(req, res, next);
-}, function (req, res, next)
-{
-    console.log("this is in the login phase once the user has been logged in", req.user);
-    console.log(req.session);
-    res.status(200).json({ message: 'success' });
 }
 );
 router.post("/logout", function (req, res, next)
