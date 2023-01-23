@@ -20,10 +20,7 @@ export default function initPassportAndSession(app: express.Application) {
   app.use(flash());
   passport.use(new LocalStrategy(User.authenticate()));
 
-  app.use(passport.initialize({
-    userProperty: 'user',
-
-  }));
+  app.use(passport.initialize());
   app.use(passport.session());
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
