@@ -15,11 +15,19 @@ router.post("/login", function (req, res, next)
         if (!user) { return res.redirect('/login'); }
 
         // NEED TO CALL req.login()!!!
-        req.logIn(user, next);
+        req.logIn(user, (err) =>
+        {
+            if (err) return res.status(500).json({ message: err });
+            console.log("this is in the login phase once the user has been logged in", req.user);
+            console.log(req.session);
+            return res.status(200).json({ message: 'success' });
+
+        });
     })(req, res, next);
-}, function (req, res, next){
+}, function (req, res, next)
+{
     console.log("this is in the login phase once the user has been logged in", req.user);
-    console.log(req.session)
+    console.log(req.session);
     res.status(200).json({ message: 'success' });
 }
 );
