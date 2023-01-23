@@ -21,7 +21,7 @@ export default function initPassportAndSession(app: express.Application) {
   passport.use(new LocalStrategy(User.authenticate()));
 
   app.use(passport.initialize({
-    userProperty: 'email',
+    userProperty: 'user',
 
   }));
   app.use(passport.session());
