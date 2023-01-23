@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api',//https://markdown-mern-production.up.railway.app/api
+    baseURL: 'https://markdown-mern-production.up.railway.app/api',//http://localhost:8080/api
     headers:{
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -9,7 +9,7 @@ const api = axios.create({
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
         'Access-Control-Allow-Credentials': 'true'
     },
-    withCredentials: true
+    withCredentials: true,
     
 
 });

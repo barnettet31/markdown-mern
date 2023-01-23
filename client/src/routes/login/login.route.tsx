@@ -22,12 +22,14 @@ const LoginPage = () =>
   const {setSession} = useSessionContext();
 
   const navigate = useNavigate();
-  const { isLoading, mutateAsync, reset } = useMutation("register", loginUser, {
-    onSuccess: async ({status}) =>
+  const { isLoading, mutateAsync, reset } = useMutation("login", loginUser, {
+    onSuccess: async ({status, data}) =>
     {
       if (status === 200)
+      console.log(data);
       {
-        const {data, status} = await me();
+        const {data, status, config} = await me();
+        console.log(config, "me config");
         if(status !== 200) throw Error("An error occured while trying to get user data");
         if(data){
 
@@ -38,12 +40,13 @@ const LoginPage = () =>
       }
       
     },
-    onError: (error) =>
+    onError: (error, d, context) =>
     {
       if (error instanceof Error)
       {
+        console.log(d);
         handleSetError(error.message);
-        throw Error("This is my error text");
+        throw Error(error.message);
       }
     },
     retry: 0,

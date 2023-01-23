@@ -13,7 +13,7 @@ const port = 8080;
 init();
 
 app.use(cors({
-  origin:"http://localhost:5173",
+  origin:"https://barnettet31.github.io/",
   credentials: true,
 }));
 
