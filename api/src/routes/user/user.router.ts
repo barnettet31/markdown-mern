@@ -18,10 +18,7 @@ router.post("/login", function (req, res, next)
         req.login(user, next);
     })(req, res, next);
 }, function (req, res, next){
-    //@ts-ignore
-    req.session.user = req.user;
-    //@ts-ignore
-    console.log(req.session.user);
+
     res.status(200).json({ message: 'success' });
 }
 );
