@@ -12,11 +12,8 @@ let uri = config.USER_DATABASE_URL.replace("<PASSWORD>", config.DATABASE_PASSWOR
 export default function initPassportAndSession(app: express.Application) {
   app.use(session({
     secret: config.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-   cookie:{
-    httpOnly:true,
-   },
+    resave: false,
+    saveUninitialized: false,
     store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
   // app.use(express.static(path.join(__dirname, 'public')));
