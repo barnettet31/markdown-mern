@@ -19,6 +19,7 @@ export default function initPassportAndSession(app: express.Application) {
     secret: config.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: { secure: false },
     store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
   app.use(flash());
