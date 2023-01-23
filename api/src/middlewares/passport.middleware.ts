@@ -25,7 +25,6 @@ export default function initPassportAndSession(app: express.Application) {
 
   }));
   app.use(passport.session());
-  //@ts-ignore
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 

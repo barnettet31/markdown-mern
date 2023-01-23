@@ -15,7 +15,7 @@ router.post("/login", function (req, res, next)
         if (!user) { return res.redirect('/login'); }
 
         // NEED TO CALL req.login()!!!
-        req.login(user, next);
+        req.logIn(user, next);
     })(req, res, next);
 }, function (req, res, next){
 
