@@ -10,13 +10,13 @@ import path from "path";
 let uri = config.USER_DATABASE_URL.replace("<PASSWORD>", config.DATABASE_PASSWORD);
 
 export default function initPassportAndSession(app: express.Application) {
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(session({
     secret: config.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store:MongoStore.create({mongoUrl:uri, collectionName:'session'})
   }));
-  // app.use(express.static(path.join(__dirname, 'public')));
   app.use(flash());
   passport.use('local',new LocalStrategy(User.authenticate()));
 
