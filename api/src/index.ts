@@ -11,14 +11,14 @@ const port = 8080;
 init();
 
 app.use(cors({
-  origin:"https://barnettet31.github.io",
+  origin:"https://www.travreadz.com",
   credentials: true,
 }));
 
 app.use(function (req, res, next)
 {
   console.log(req.headers.origin);
-  res.header("Access-Control-Allow-Origin", "https://barnettet31.github.io");
+  res.header("Access-Control-Allow-Origin", "https://www.travreadz.com");
   res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials");
   res.header('Access-Control-Allow-Credentials', "true");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
