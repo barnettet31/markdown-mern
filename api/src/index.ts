@@ -19,22 +19,22 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(function (req, res, next)
+{
+  console.log(req.user);
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials");
+  res.header('Access-Control-Allow-Credentials', "true");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  console.log("headers set");
 
+  next();
+});
 initPassportAndSession(app);
 
 // const connection = mongoose.createConnection(DB, {});
 
-app.use(function (req, res, next)
-{ 
-    console.log(req.user);
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-    res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials");
-    res.header('Access-Control-Allow-Credentials', "true");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    console.log("headers set");
 
-    next();
-  });
   //USER ROUTER
   app.use("/api/users", UserRouter);
   app.use("/api/documents", DocumentRouter);
