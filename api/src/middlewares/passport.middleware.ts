@@ -20,9 +20,30 @@ export default function initPassportAndSession(app: express.Application) {
     name: 'session',
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
-    
-  }));
 
+  }));
+  app.use(function (request, response, next)
+  {
+    if (request.session && !request.session.regenerate)
+    {
+      //@ts-ignore
+      request.session.regenerate = (cb) =>
+      {
+        //@ts-ignore
+        cb();
+      };
+    }
+    if (request.session && !request.session.save)
+    {
+      //@ts-ignore
+      request.session.save = (cb) =>
+      {
+        //@ts-ignore
+        cb();
+      };
+    }
+    next();
+  });
   app.use(flash());
   passport.use(new LocalStrategy(User.authenticate()));
 
