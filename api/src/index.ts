@@ -19,6 +19,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+initPassportAndSession(app);
 app.use(function (req, res, next)
 {
   console.log(req.user);
@@ -30,7 +31,6 @@ app.use(function (req, res, next)
 
   next();
 });
-initPassportAndSession(app);
 
 // const connection = mongoose.createConnection(DB, {});
 
