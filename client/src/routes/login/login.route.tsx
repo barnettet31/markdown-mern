@@ -26,7 +26,6 @@ const LoginPage = () =>
     onSuccess: async ({status, data}) =>
     {
       if (status === 200)
-      console.log(data);
       {
         const {data, status, config} = await me();
         if(status !== 200) throw Error("An error occured while trying to get user data");

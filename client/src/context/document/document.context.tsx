@@ -32,6 +32,10 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
           setDocumentName(data.document.name);
         }
       },
+      onError:(err)=>{
+        console.log(err);
+        
+      }
     });
     const {isLoading, mutate} = useMutation('updateDocument', ()=>updateDocument(id, {markdown:markdown, name:documentName}), {
       onSuccess:()=>queryClient.invalidateQueries('documents')
@@ -55,9 +59,8 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
     const updateName = (data: string) => setDocumentName(data);
     const postUpdate =()=>mutate()
     useEffect(()=>{
-      console.log(id)
      queryClient.invalidateQueries('document');
-    },[id])
+    },[id]);
     
     return (
       <DocumentContext.Provider

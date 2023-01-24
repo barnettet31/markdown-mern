@@ -9,6 +9,7 @@ import { getDocument } from "../../api/document.handler";
 import { useQuery } from "react-query";
 import { ErrorPage } from "../../components/errorPage/errorPageComponent";
 import { useDocumentContext } from "../../context/document/document.context";
+import LoadingIndicator from "../../components/loadingIndicator/loading.component";
 export const UserDocument = () => {
   const [myMarkdown, setMyMarkdown] = useState<string | undefined>("");
   const { id } = useParams();
@@ -27,9 +28,6 @@ export const UserDocument = () => {
       },
     }
   );
-  useEffect(()=>{
-    refetch()
-  },[id])
   const { preview, setPreview } = usePreview();
   if (isLoading) return <div>Loading....</div>;
 
@@ -80,5 +78,5 @@ export const UserDocument = () => {
       </>
     );
   if (isError) return <ErrorPage />;
-  return <ErrorPage />;
+  return <LoadingIndicator />;
 };
