@@ -20,7 +20,15 @@ const MyRoutes = () => {
   return (
     <Routes>
       <Route element={<HomeLayout />}>
-        <Route path="/" index element={<HomePage />} />
+        <Route
+          path="/"
+          index
+          element={
+            <Suspense fallback={<LoadingIndicator />}>
+              <HomePage />
+            </Suspense>
+          }
+        />
         <Route
           path="/login"
           element={
@@ -41,7 +49,14 @@ const MyRoutes = () => {
           }
         />
         <Route path="/disclaimer" element={<DisclaimerPage />} />
-        <Route path="/code" element={<CodePage />} />
+        <Route
+          path="/code"
+          element={
+            <Suspense fallback={<LoadingIndicator/>}>
+              <CodePage />
+            </Suspense>
+          }
+        />
       </Route>
       <Route
         element={
