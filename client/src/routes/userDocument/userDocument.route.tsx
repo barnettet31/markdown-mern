@@ -29,7 +29,7 @@ export const UserDocument = () => {
     }
   );
   const { preview, setPreview } = usePreview();
-  if (isLoading) return <div>Loading....</div>;
+  if (isLoading) return <LoadingIndicator />;
 
   if (data?.document)
     return (
@@ -78,5 +78,4 @@ export const UserDocument = () => {
       </>
     );
   if (isError) return <ErrorPage />;
-  return <LoadingIndicator />;
 };
