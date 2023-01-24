@@ -14,7 +14,7 @@ export const UserDocument = () => {
   const [myMarkdown, setMyMarkdown] = useState<string | undefined>("");
   const { id } = useParams();
   const { updateMarkDown } = useDocumentContext();
-  const { isLoading, data, isError, error, refetch } = useQuery(
+  const { isLoading, isError} = useQuery(
     "document",
     () => getDocument(id),
     {
