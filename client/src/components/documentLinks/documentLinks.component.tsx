@@ -13,9 +13,9 @@ export const DocumentLinks = ()=>{
       if(data?.documents){
         return (
           <>
-            {data.documents.length > 0 ? data.documents.map(({ createdAt, name, id }) => (
+            {data.documents.length > 0 ? (data.documents.map(({ createdAt, name, id }) => (
               <DocumentLink key={id} createdAt={new Date(createdAt).toLocaleDateString()} name={name} id={id} />
-            )) : <p className="">No current documents</p>}
+            ))) : <p className="text-white text-base">No current documents</p>}
           </>
         ); 
       }
