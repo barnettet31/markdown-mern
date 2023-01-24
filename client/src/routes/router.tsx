@@ -45,9 +45,13 @@ const MyRoutes = () => {
         path="/"
         element={
           <ProtectedRoute>
-            <DocumentContextProvider>
-              <UserDashboard />
-            </DocumentContextProvider>
+            <ErrorBoundary errorElement={<ErrorPage/>}>
+              <Suspense fallback={<LoadingIndicator />}>
+                <DocumentContextProvider>
+                  <UserDashboard />
+                </DocumentContextProvider>
+              </Suspense>
+            </ErrorBoundary>
           </ProtectedRoute>
         }>
         <Route path="/welcome" index element={<Welcome />} />

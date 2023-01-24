@@ -24,7 +24,7 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
     const navigate = useNavigate();
     const [markdown, setMarkDown] = useState('');
     const [documentName, setDocumentName] = useState('');
-    const { refetch } = useQuery("document", () => getDocument(id), {
+    const { refetch, isFetching } = useQuery("document", () => getDocument(id), {
       onSuccess: (data) => {
         console.log(data?.document)
         if(data){
@@ -35,9 +35,12 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
       onError:(err)=>{
         console.log(err);
         
-      }
+      }, 
+      refetchInterval:30000,
+      refetchOnMount:false,
+      refetchOnWindowFocus:false,
     });
-    const {isLoading, mutate} = useMutation('updateDocument', ()=>updateDocument(id, {markdown:markdown, name:documentName}), {
+    const {isLoading, mutateAsync} = useMutation('updateDocument', ()=>updateDocument(id, {markdown:markdown, name:documentName}), {
       onSuccess:()=>{
         queryClient.invalidateQueries('documents');
         queryClient.invalidateQueries('document');
@@ -60,7 +63,7 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
 
     const updateMarkDown = (data:string)=>setMarkDown(data);
     const updateName = (data: string) => setDocumentName(data);
-    const postUpdate =()=>mutate()
+    const postUpdate =()=>mutateAsync()
     useEffect(()=>{
      queryClient.invalidateQueries('document');
     },[id]);
