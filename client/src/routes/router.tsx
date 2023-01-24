@@ -1,8 +1,8 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { HomeLayout } from "../layouts/home/home.layout";
 import { ErrorBoundary } from "../components/error/errorBoundary.component";
-import ProtectedRoute from "../components/protectedRoute/protectedRoute.component";
+import ProtectedRoutes from "../components/protectedRoute/protectedRoute.component";
 import { UserDashboard } from "../layouts/dashboard/user.layout";
 import { UserDocument } from "./userDocument/userDocument.route";
 import { Welcome } from "./welcome/welcome.route";
@@ -41,32 +41,30 @@ const MyRoutes = () => {
         <Route path="/disclaimer" element={<DisclaimerPage />} />
         <Route path="/code" element={<CodePage />} />
       </Route>
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <ErrorBoundary errorElement={<ErrorPage/>}>
+      <Route element={<ProtectedRoutes />}>
+        <Route
+          path="/"
+          element={
+            <ErrorBoundary errorElement={<ErrorPage />}>
               <Suspense fallback={<LoadingIndicator />}>
                 <DocumentContextProvider>
                   <UserDashboard />
                 </DocumentContextProvider>
               </Suspense>
             </ErrorBoundary>
-          </ProtectedRoute>
-        }>
-        <Route path="/welcome" index element={<Welcome />} />
-        <Route
-          path="/:id"
-          element={
-            <ProtectedRoute>
+          }>
+          <Route path="/welcome" index element={<Welcome />} />
+          <Route
+            path="/:id"
+            element={
               <ErrorBoundary errorElement={<ErrorPage />}>
                 <Suspense fallback={<LoadingIndicator />}>
                   <UserDocument />
                 </Suspense>
               </ErrorBoundary>
-            </ProtectedRoute>
-          }
-        />
+            }
+          />
+        </Route>
       </Route>
     </Routes>
   );
