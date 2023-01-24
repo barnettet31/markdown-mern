@@ -26,7 +26,7 @@ export const UserDashboard = () => {
         <main
           className={`${styles.main} ${
             preview ? styles.previewActive : ""
-          } dark:bg-black text-white bg-secondary-gray grid height-full overflow-scroll`}>
+          } dark:bg-black text-white bg-white grid height-full overflow-scroll`}>
           <Outlet
             context={{
               preview,
