@@ -34,6 +34,7 @@ export const Aside = ({handleToggle}:IProps) => {
     }
   }
   return (
+    <div className="flex flex-col gap-4">
     <div
       className={`bg-primary-black flex flex-col justify-between px-6 py-7 ${styles.aside}`}>
       <div className="">
@@ -53,6 +54,7 @@ export const Aside = ({handleToggle}:IProps) => {
       </div>
       <div className="flex flex-col self-start flex-1 py-4 mt-6 overflow-scroll max-h-[500px] md:max-h-[1024px] lg:max-h-[900px] gap-7 scrollbar-hide">
       <DocumentLinks/>
+      </div>
       </div>
       <div className="flex flex-col gap-4">
         <LogoutButton logout={() => logout()} />
