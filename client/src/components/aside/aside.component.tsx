@@ -27,7 +27,7 @@ export const Aside = ({handleToggle}:IProps) => {
       queryClient.invalidateQueries('documents');
       queryClient.invalidateQueries('document');
       handleToggle();
-      navigation(`/${data.id}`);
+      navigation(`/${data.id}`, {replace:true});
 
     }catch(e){
       console.log("An Error Occurred while creating the document",e)

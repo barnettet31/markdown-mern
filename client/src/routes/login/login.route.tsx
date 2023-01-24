@@ -41,7 +41,7 @@ const LoginPage = () =>
     {
       if (error instanceof Error)
       {
-        console.log(d);
+
         handleSetError(error.message);
         throw Error(error.message);
       }

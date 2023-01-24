@@ -28,7 +28,7 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
       onSuccess: (data) => {
         console.log(data?.document)
         if(data){
-          setMarkDown(data.document.content);
+          setMarkDown(data.document.content ?? '# No Content Created So Far');
           setDocumentName(data.document.name);
         }
       },
@@ -38,7 +38,10 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
       }
     });
     const {isLoading, mutate} = useMutation('updateDocument', ()=>updateDocument(id, {markdown:markdown, name:documentName}), {
-      onSuccess:()=>queryClient.invalidateQueries('documents')
+      onSuccess:()=>{
+        queryClient.invalidateQueries('documents');
+        queryClient.invalidateQueries('document');
+      }
     });
     const queryClient = useQueryClient();
 
