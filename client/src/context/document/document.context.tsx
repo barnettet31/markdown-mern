@@ -3,6 +3,7 @@ import { deleteDocument, getDocument, updateDocument } from '../../api/document.
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingIndicator from '../../components/loadingIndicator/loading.component';
+import { LoadingDashboard } from '../../components/loadingDashboard/loadingDashboard.component';
 
 interface IContext {
   handleDelete:(id:string)=>void;
@@ -72,7 +73,7 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
       <DocumentContext.Provider
         value={{ handleDelete:handleDelete, updateMarkDown:updateMarkDown, updateName:updateName, postUpdate:postUpdate, name:documentName, markdown }}>
         <>
-          {isFetching || isLoading ? <LoadingIndicator /> : children}
+          {isFetching || isLoading ? <LoadingDashboard /> : children}
         </>
       </DocumentContext.Provider>
     );

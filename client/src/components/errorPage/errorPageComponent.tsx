@@ -21,7 +21,7 @@ export const ErrorPage = ()=>{
                 <Link
                   to="/welcome"
                   className="inline-flex items-center rounded-md border border-transparent bg-primary-orange px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-secondary-orange">
-                  Go back home
+                  Go back to the welcome page
                 </Link>
                 
               </div>
