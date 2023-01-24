@@ -7,5 +7,8 @@ const documentScema = new Schema<IDocument>({
   createdAt: { type: Date, default: Date.now },
   content: { type: String, },
 });
+documentScema.pre('save', function(next) {
+  this.name = `untitled-${this._id.toString().slice(0,6)}.md`;
+})
 
 export default model<IDocument>("Document", documentScema);
