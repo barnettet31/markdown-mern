@@ -3,7 +3,7 @@ import { IUserResult } from '../api/api.types';
 
 export const setSessionCookie = async(session:IUserResult)=>{
     cookies.remove('token');
-    cookies.set('token',JSON.stringify(session));
+    cookies.set('token', JSON.stringify(session));
 }
 export const removeSessionCookie = ()=>{
     cookies.remove('token');
