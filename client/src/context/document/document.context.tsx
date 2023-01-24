@@ -24,26 +24,26 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
     const navigate = useNavigate();
     const [markdown, setMarkDown] = useState('');
     const [documentName, setDocumentName] = useState('');
-    const { refetch, isFetching } = useQuery("document", () => getDocument(id), {
-      onSuccess: (data) => {
-        console.log(data?.document)
-        if(data){
-          setMarkDown(data.document.content ?? '# No Content Created So Far');
-          setDocumentName(data.document.name);
-        }
-      },
-      onError:(err)=>{
-        console.log(err);
-        
-      }, 
-      refetchInterval:30000,
-      refetchOnMount:false,
-      refetchOnWindowFocus:false,
-    });
+    const { refetch, isFetching } = useQuery(
+      ["document", id],
+      () => getDocument(id),
+      {
+        onSuccess: (data) => {
+          console.log(data?.document);
+          if (data) {
+            setMarkDown(data.document.content ?? "# No Content Created So Far");
+            setDocumentName(data.document.name);
+          }
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        staleTime: 300000,
+      }
+    );
     const {isLoading, mutateAsync} = useMutation('updateDocument', ()=>updateDocument(id, {markdown:markdown, name:documentName}), {
       onSuccess:()=>{
         queryClient.invalidateQueries('documents');
-        queryClient.invalidateQueries('document');
       }
     });
     const queryClient = useQueryClient();
