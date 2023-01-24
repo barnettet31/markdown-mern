@@ -24,6 +24,7 @@ export const Aside = ({handleToggle}:IProps) => {
   const createADocument = async ()=>{
     try{
       const {data} = await createDocument();
+      console.log(data);
       queryClient.invalidateQueries('documents');
       queryClient.invalidateQueries('document');
       handleToggle();
