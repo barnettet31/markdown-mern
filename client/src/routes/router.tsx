@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { HomeLayout } from "../layouts/home/home.layout";
 import { ErrorBoundary } from "../components/error/errorBoundary.component";
 import ProtectedRoute from "../components/protectedRoute/protectedRoute.component";
@@ -68,7 +68,7 @@ const MyRoutes = () => {
   );
 };
 export const ApplicationRouter = () => (
-  <BrowserRouter>
+  <HashRouter>
     <MyRoutes />
-  </BrowserRouter>
+  </HashRouter>
 );
