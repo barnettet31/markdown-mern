@@ -10,6 +10,7 @@ import { ErrorPage } from "../components/errorPage/errorPageComponent";
 import LoadingIndicator from "../components/loadingIndicator/loading.component";
 import { DocumentContextProvider } from "../context/document/document.context";
 import { LoadingDashboard } from "../components/loadingDashboard/loadingDashboard.component";
+import { SessionContextProvider } from "../context/session.context";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
@@ -42,7 +43,12 @@ const MyRoutes = () => {
         <Route path="/disclaimer" element={<DisclaimerPage />} />
         <Route path="/code" element={<CodePage />} />
       </Route>
-      <Route element={<ProtectedRoutes />}>
+      <Route
+        element={
+          <SessionContextProvider>
+            <ProtectedRoutes />
+          </SessionContextProvider>
+        }>
         <Route
           path="/"
           element={
