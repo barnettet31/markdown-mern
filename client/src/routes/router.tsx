@@ -9,6 +9,7 @@ import { Welcome } from "./welcome/welcome.route";
 import { ErrorPage } from "../components/errorPage/errorPageComponent";
 import LoadingIndicator from "../components/loadingIndicator/loading.component";
 import { DocumentContextProvider } from "../context/document/document.context";
+import { LoadingDashboard } from "../components/loadingDashboard/loadingDashboard.component";
 const DisclaimerPage = lazy(() => import("./disclaimer/disclaimer.route"));
 const HomePage = lazy(() => import("./home/home.route"));
 const LoginPage = lazy(() => import("./login/login.route"));
@@ -46,7 +47,7 @@ const MyRoutes = () => {
           path="/"
           element={
             <ErrorBoundary errorElement={<ErrorPage />}>
-              <Suspense fallback={<LoadingIndicator />}>
+              <Suspense fallback={<LoadingDashboard />}>
                 <DocumentContextProvider>
                   <UserDashboard />
                 </DocumentContextProvider>
@@ -58,7 +59,7 @@ const MyRoutes = () => {
             path="/:id"
             element={
               <ErrorBoundary errorElement={<ErrorPage />}>
-                <Suspense fallback={<LoadingIndicator />}>
+                <Suspense fallback={<LoadingDashboard />}>
                   <UserDocument />
                 </Suspense>
               </ErrorBoundary>
