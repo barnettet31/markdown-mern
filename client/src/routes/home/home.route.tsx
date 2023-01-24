@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { AppTypography } from "../../components/typography/app-typography.component";
+import { LoadingDashboard } from "../../components/loadingDashboard/loadingDashboard.component";
 
 const HomePage = () => {
 

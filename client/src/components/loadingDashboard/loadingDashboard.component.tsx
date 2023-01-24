@@ -1,15 +1,15 @@
 import { Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { MenuIcon } from "../menuIcon/menuIcon.component";
 import { DashBoardLogo } from "../logo/dashboardLogo.component";
-import { DocumentIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, DocumentIcon } from "@heroicons/react/24/outline";
 
 export const LoadingDashboard = () => {
   return (
-    <div>
+    <div className="dark:bg-primary-black bg-primary-white">
       <div className={`flex justify-between items-center bg-tertiary-black`}>
-        <MenuIcon isOpen={false} toggleHandle={() => null} />
-
+        <div className="flex items-center justify-center bg-[#35393F] cursor-pointer flex-auto h-[72px] w-[72px]">
+          <Bars3Icon className="h-[30px] w-[30px] text-white" />
+        </div>
         <DashBoardLogo />
 
         <div className="flex justify-between gap-3 md:gap-0 px-4 md:px-5 w-full">
@@ -17,8 +17,8 @@ export const LoadingDashboard = () => {
             <div className="flex items-center gap-4">
               <DocumentIcon className="text-white h-4 w-4 hover:opacity-100" />
               <div className="rounded-md px-3 py-2">
-                <div className="block w-12 text-sm font-default font-light leading-4 text-secondary-gray bg-secondary-gray rounded animate-pulse"></div>
-                <div className="block w-16 bg-transparent border-0 rounded animate-pulse p-2 text-white outline-none placeholder-white sm:text-sm border-b-primary-orange border-b" />
+                <div className="block w-48 h-1 mb-2 p-1 text-sm font-default font-light leading-4 text-secondary-gray bg-secondary-gray rounded animate-pulse"></div>
+                <div className="block w-24 h-1 border-0 rounded animate-pulse p-1 text-white outline-none placeholder-white sm:text-sm bg-primary-orange" />
               </div>
             </div>
           </div>
@@ -53,7 +53,9 @@ export const LoadingDashboard = () => {
               fill="currentColor"
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <h1 className="text-primary-orange animate-pulse">We are loading your content now...</h1>
+          <h1 className="text-primary-orange animate-pulse mt-4 text-3xl text-center">
+            We are loading your content now...
+          </h1>
         </div>
       </Transition>
     </div>
