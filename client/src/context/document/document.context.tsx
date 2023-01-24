@@ -73,6 +73,7 @@ export const DocumentContextProvider = ({children}:IContextProviderProps)=>{
         value={{ handleDelete:handleDelete, updateMarkDown:updateMarkDown, updateName:updateName, postUpdate:postUpdate, name:documentName, markdown }}>
         <>
           {children}
+          {isFetching ? <LoadingIndicator /> : null}
           {isLoading ? <LoadingIndicator /> : null}
         </>
       </DocumentContext.Provider>
