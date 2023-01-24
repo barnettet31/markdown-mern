@@ -12,10 +12,6 @@ interface IContextProps {
 
 export const SessionContextProvider =({children}:IContextProps)=>{
     const [session, setSession] = useState<IUserResult | null>(getSessionCookie());
-    
-    useEffect(() => {
-        setSession(getSessionCookie());
-    }, [session])
     const setMySession = (session:IUserResult | null) => setSession(session);
     return (
         <SessionContext.Provider value={{session:session, setSession:setMySession}}>{children}</SessionContext.Provider>

@@ -65,7 +65,6 @@ const MyRoutes = () => {
           </SessionContextProvider>
         }>
         <Route
-          path="/"
           element={
             <ErrorBoundary errorElement={<ErrorPage />}>
               <Suspense fallback={<LoadingDashboard />}>
