@@ -63,12 +63,12 @@ export const UserDocument = () => {
           {preview ? (
             <EyeSlashIcon
               onClick={() => setPreview()}
-              className="w-4 cursor-pointer hover:text-primary-orange"
+              className="w-4 cursor-pointer hover:text-primary-orange dark:text-tertiary-gray text-secondary-gray"
             />
           ) : (
             <EyeIcon
               onClick={() => setPreview()}
-              className="w-4 cursor-pointer hover:text-primary-orange"
+              className="w-4 cursor-pointer hover:text-primary-orange dark:text-tertiary-gray text-secondary-gray"
             />
           )}
         </div>

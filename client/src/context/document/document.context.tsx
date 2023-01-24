@@ -2,7 +2,6 @@ import {createContext, useContext, useEffect, useState} from 'react';
 import { deleteDocument, getDocument, updateDocument } from '../../api/document.handler';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import LoadingIndicator from '../../components/loadingIndicator/loading.component';
 import { LoadingDashboard } from '../../components/loadingDashboard/loadingDashboard.component';
 
 interface IContext {
