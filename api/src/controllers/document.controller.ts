@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { IUser } from "../models/user.model";
 import documentModel from "../models/document.model";
+import { nanoid } from "nanoid";
 
 export const createDocument = async (req: Request, res: Response, next: NextFunction) =>
 {
@@ -9,7 +10,7 @@ export const createDocument = async (req: Request, res: Response, next: NextFunc
         const currentUser = req.user as IUser;
         try
         {
-            const newDocument = await documentModel.create({ user: currentUser.id });
+            const newDocument = await documentModel.create({ user: currentUser.id, name:`${nanoid(10)}.md` });
             res.status(200).json({
                 id: newDocument.id,
             });
