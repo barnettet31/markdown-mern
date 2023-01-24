@@ -14,7 +14,7 @@ export const SessionContextProvider =({children}:IContextProps)=>{
     const [session, setSession] = useState<IUserResult | null>(getSessionCookie());
     
     useEffect(() => {
-        setSession(getSessionCookie())
+        setSession(getSessionCookie());
     }, [session])
     const setMySession = (session:IUserResult | null) => setSession(session);
     return (
