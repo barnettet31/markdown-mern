@@ -9,7 +9,7 @@ export const createDocument = async (req: Request, res: Response, next: NextFunc
         const currentUser = req.user as IUser;
         try
         {
-            const newDocument = await documentModel.create({ user: currentUser.id, name:`${crypto.randomBytes(8).toString('hex')}.md` });
+            const newDocument = await documentModel.create({ user: currentUser.id, name:`${crypto.randomBytes(6).toString('hex')}.md` });
             res.status(200).json({
                 id: newDocument.id,
             });
