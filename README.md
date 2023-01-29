@@ -43,15 +43,26 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![Desktop](./desktop.png)
+![Tablet](./tablet.png)
+![Mobile](./mobile.png)
+
 
 ### Links
 
-- Solution URL: [Add solution URL here]()
-- Live Site URL: [Add live site URL here]()
+- Solution URL: [Add solution URL here](https://github.com/barnettet31/markdown-mern)
+- Live Site URL: [Add live site URL here](https://www.travreadz.com/)
 
 ## My process
+So I actually decided to build this app as a full stack MERN application using nodejs/mongo as my backend and db combo. 
 
+My goal was to first get the user authentication portion down first so I built out a simple signup/sign in form taht would enable me to test that. 
+
+Then after that, I had a means of only making authenticated requests to my web server for user documents and posting updates/deleting documents. 
+
+The styling and the layout was provided by the figma file and was relatively simple. The only really difficult part was the font color on the code editor component that I used. 
+
+I used grid template areas to  define the layout. 
 ### Built with
 
 - Semantic HTML5 markup
@@ -60,16 +71,19 @@ Users should be able to:
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
 - [NodeJs](https://nodejs.org/en/) - Server
+- [PassportJs](https://www.passportjs.org/) - Authentication
 - [TailwindCSS](https://tailwindcss.com/) - For styles
 
+
 ### What I learned
-
+I learned how to code up a simple authentication process with HTTP only cookies and how to code up node js middlewares that allow me to control the cors rules for incoming requests! It's honestly very simple considering the cors package that's available on node js. 
 ```ts
-
+app.use(cors());
+//literally just as simple as that. 
 ```
 
 ### Continued development
-
+I think in the future I won't roll my own auth solution as it was very complicated and time consuming. I'm going to learn how to integrate other providers into my apps and use those for the heavy lifting for the auth. 
 ## Author
 
 - Website - [Travis Barnette](https://www.travcodez.com)
