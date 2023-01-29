@@ -50,8 +50,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/barnettet31/markdown-mern)
-- Live Site URL: [Add live site URL here](https://www.travreadz.com/)
+- Solution URL: [My Solution](https://github.com/barnettet31/markdown-mern)
+- Live Site URL: [Live Site](https://www.travreadz.com/)
 
 ## My process
 So I actually decided to build this app as a full stack MERN application using nodejs/mongo as my backend and db combo. 
